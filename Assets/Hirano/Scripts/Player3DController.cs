@@ -17,13 +17,11 @@ public class Player3DController : PlayerMoveController
         var AxisInput = new Vector3(h, 0.0f, v);
         transform.position -= AxisInput * Time.deltaTime;
         //回転
-        //var degree = Mathf.Atan2(AxisInput.x, AxisInput.z) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(Vector3.down * degree);
-        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+        if (h >= 0.1f || v >= 0.1f)
         {
             transform.rotation = Quaternion.LookRotation(transform.position -
-            (Vector3.right * Input.GetAxisRaw("Horizontal")) -
-            (Vector3.forward * Input.GetAxisRaw("Vertical"))
+            (Vector3.right * Input.GetAxis("Horizontal")) -
+            (Vector3.forward * Input.GetAxis("Vertical"))
             - transform.position);
         }
         //ジャンプ
