@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Get_Attack : MonoBehaviour {
+public class Get_Attack : MonoBehaviour
+{
 
     //攻撃判定
     public bool AttackFlg = false;
@@ -20,25 +21,26 @@ public class Get_Attack : MonoBehaviour {
     //// Update is called once per frame
     void Update()
     {
-        if (GetAttack&&AttackFlg)
+        if (GetAttack && AttackFlg && !AttackStopflg && !enemy.IsFly)
         {
-            GetAttack = false;
             Debug.Log("ATTACK_HIT!!");
+            GetAttack = false;
         }
         if (AttackStopflg)
         {
-            AttackStopTime = 0;
             if (AttackStopTime >= 3f)
             {
                 AttackStopflg = false;
                 Debug.Log("ATTACK READY");
+                AttackStopTime = 0;
             }
             AttackStopTime += Time.deltaTime;
+            //Debug.Log(AttackStopTime);
         }
 
     }
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Player")
             ChangeFlg();
@@ -49,24 +51,22 @@ public class Get_Attack : MonoBehaviour {
 
     //}
 
-    void OnTriggerExit2D(Collider2D collider)
+    void OnTriggerExit(Collider collider)
     {
         if (collider.gameObject.tag == "Player")
         {
             ChangeFlg();
             GetAttack = false;
         }
-        if (AttackStopflg)
-        {
-            AttackStopflg = false;
-            Debug.Log("ATTACK READY");
-        }
+        //if (AttackStopflg)
+        //{
+        //    AttackStopflg = false;
+        //    Debug.Log("ATTACK READY");
+        //}
 
     }
     void ChangeFlg()
     {
         AttackFlg = !AttackFlg;
     }
-
-
 }
