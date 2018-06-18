@@ -23,6 +23,8 @@ namespace StateMachine
 
         [SerializeField]                   //巡回地点
         Transform[] StayPoint;             //設定座標が1の時はその場で待機
+        [SerializeField]
+        Vector3[] StayPos;
 
         [SerializeField]
         float speed = 4f;                  //移動
@@ -37,7 +39,7 @@ namespace StateMachine
         bool P_Targetlostflg;             //プレーヤーを見失った時に発生
 
         [SerializeField]
-        float attackInterval = 2f;        //攻撃頻度
+        float attackInterval;        //攻撃頻度
 
         [SerializeField]
         Get_Pursuit pursuit;              //追跡に移行する範囲
@@ -46,6 +48,9 @@ namespace StateMachine
 
         [SerializeField]
         float margin = 4f;               //オブジェクトの大きさ
+
+        Ray ray;
+        
 
         private float changeTargetDistance = 1f;//接触地点への判定距離
 
@@ -70,9 +75,10 @@ namespace StateMachine
         void OnCollisionEnter(Collision collider)
         {
             if (collider.gameObject.tag == "Player")
+            {
                 attack.AttackStopflg = true;
-            Debug.Log("ATTACK_HIT!!");
-
+                Debug.Log("ATTACK_HIT!!");
+            }
         }
 
 
@@ -100,6 +106,10 @@ namespace StateMachine
             //目標地点
             Vector3 targetPoint;
             Vector3 diff;
+
+            // outパラメータ用に、Rayのヒット情報を取得するための変数を用意
+            RaycastHit hit;
+            string hitTag;
 
             public override void Enter()
             {
@@ -131,24 +141,24 @@ namespace StateMachine
                 ///目標地点の関係で移動ができなくなったとき
                 ///初期位置にワープして対応する
                 ///</summary>
-                //徘徊状態か、警戒状態の時のみ確認
-                if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
-                {
-                    Count_MoveCancel += Time.deltaTime;
-                }
-                //5秒毎に稼働状態を確認
-                if (Count_MoveCancel >= 5.0f)
-                {
-                    ReSpawn();
-                }
+                ////徘徊状態か、警戒状態の時のみ確認
+                //if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
+                //{
+                //    Count_MoveCancel += Time.deltaTime;
+                //}
+                ////5秒毎に稼働状態を確認
+                //if (Count_MoveCancel >= 5.0f)
+                //{
+                //    ReSpawn();
+                //}
                 //間に障害物がない状態で追跡範囲に入ったら、追跡ステートに遷移
                 if (owner.pursuit.PursuitFlg && owner.pursuit.hitTag == "Player" && !owner.attack.AttackStopflg)
                 {
                     owner.ChangeState(status.Pursuit);
                 }
                 // 目標地点との距離が小さければ、
-                float sqrDistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
-                if (sqrDistanceToTarget < owner.changeTargetDistance)
+                float DistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
+                if (DistanceToTarget < owner.changeTargetDistance)
                 {
                     if (owner.P_Targetlostflg)
                     {
@@ -176,6 +186,33 @@ namespace StateMachine
                 }
                 else
                 {
+                    // 正面に向かってRayを飛ばす（第1引数がRayの発射座標、第2引数がRayの向き）
+                    owner.ray = new Ray(owner.gameObject.transform.position, Vector3.right * owner.moveVec);
+
+                    // シーンビューにRayを可視化
+                    Debug.DrawRay(owner.ray.origin, owner.ray.direction * 5.0f, Color.red, 0.0f);
+
+                    // Rayのhit情報を取得する(レイ、衝突したオブジェクトの情報、長さ、レイヤー)
+                    if (Physics.Raycast(owner.ray, out hit, 5.0f))
+                    {
+
+                        // Rayがhitしたオブジェクトのタグ名を取得
+                        hitTag = hit.collider.tag;
+
+                        //タグが設定されてなかったら(ステージのタグなら)
+                        if (hitTag != "Untagged")
+                        {
+                            if (owner.IsFly)
+                            {
+                                //障害物を迂回する＠飛行
+                            }
+                            else
+                            {
+                                //障害物を迂回する＠歩行
+                            }
+                        }
+                    }
+
                     diff = (targetPoint - owner.transform.position);
 
                     //移動方向に応じて向きの切り替え
@@ -199,16 +236,14 @@ namespace StateMachine
                     }
                     owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
 
+
+                    // 目標地点の方向を向く
+                    //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
+                    //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
+                    //// 前方に進む
+                    //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
+
                 }
-
-                // 目標地点の方向を向く
-                //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
-                //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
-                //// 前方に進む
-                //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
-
-
-
             }
 
             public override void Exit()

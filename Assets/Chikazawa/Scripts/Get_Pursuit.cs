@@ -19,16 +19,16 @@ public class Get_Pursuit : MonoBehaviour {
 
     void Update()
     {
-        if(PursuitFlg )
-        DirecthionToPlayer = enemy.player.transform.position - enemy.gameObject.transform.position;
+        if (PursuitFlg)
+        {
+            DirecthionToPlayer = enemy.player.transform.position - enemy.gameObject.transform.position;
 
-        // とりあえずPlayerに向かってRayを飛ばす（第1引数がRayの発射座標、第2引数がRayの向き）
-        ray = new Ray(enemy.gameObject.transform.position, DirecthionToPlayer);
+            // とりあえずPlayerに向かってRayを飛ばす（第1引数がRayの発射座標、第2引数がRayの向き）
+            ray = new Ray(enemy.gameObject.transform.position, DirecthionToPlayer);
 
-
-        // シーンビューにRayを可視化
-        Debug.DrawRay(ray.origin, ray.direction * 19.0f, Color.red, 0.0f);
-
+            // シーンビューにRayを可視化
+            Debug.DrawRay(ray.origin, ray.direction * 19.0f, Color.red, 0.0f);
+        }
         // Rayのhit情報を取得する(レイ、衝突したオブジェクトの情報、長さ、レイヤー)
         if (Physics.Raycast(ray, out hit, 19.0f))
         {
