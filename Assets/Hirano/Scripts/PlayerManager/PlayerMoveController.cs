@@ -12,6 +12,7 @@ public abstract class PlayerMoveController : MonoBehaviour
     protected Rigidbody rig;
     protected float flap = 250.0f;
     protected bool Jump = false;
+    public static bool Clear = false;
     void Awake()
     {
         playerposition = transform.position;
@@ -38,6 +39,7 @@ public abstract class PlayerMoveController : MonoBehaviour
     {
         if (other.gameObject.tag == ("Gole"))
         {
+            Clear = true;
             Manager.ClearLabel.SetActive(true);
             Invoke("StageSlect", 2.0f);
         }
