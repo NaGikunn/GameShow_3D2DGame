@@ -14,6 +14,7 @@ public class FadeTest : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        //SceaneManagerControllerを持ってくる
         SceaneManagerController.Instance.NowSceneManagement();
 	}
 }

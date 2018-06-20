@@ -13,13 +13,18 @@ public abstract class PlayerMoveController : MonoBehaviour
     protected float flap = 250.0f;
     protected bool Jump = false;
     public static bool Clear = false;
+    protected AudioSource SEAudio1;
+    protected AudioSource SEAudio2;
     void Awake()
     {
         playerposition = transform.position;
         anim = GetComponent<Animator>();
         rig = GetComponent<Rigidbody>();
+        AudioSource[] audiosorce = GetComponents<AudioSource>();
+        SEAudio1 = audiosorce[0];
+        SEAudio2 = audiosorce[1];
         Manager = GetComponent<PlayerManagerController>();
-
+        Clear = false;
         PositionInitialization();
     }
 

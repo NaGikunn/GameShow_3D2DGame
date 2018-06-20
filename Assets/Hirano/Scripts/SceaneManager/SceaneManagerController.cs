@@ -48,17 +48,18 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         //チュートリアルステージなら
         if(NowScene == "StageTutorial_m")
         {
+            //初めに黒のフェードアウト
             if (Blackalfa >= 0.0f)
             {
                 BlackFadeOut();
             }
 
+            //clear時
             if (PlayerMoveController.Clear)
             {
                 if(Whitealfa <= 1.0f)
                 {
                     WhiteFadeIn();
-                    Debug.Log("Clear");
                 }
             }
         }

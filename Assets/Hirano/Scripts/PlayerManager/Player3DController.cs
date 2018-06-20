@@ -29,6 +29,7 @@ public class Player3DController : PlayerMoveController
         if (Input.GetButtonDown("JoyStick2") && !Jump)
         {
             rig.AddForce(Vector2.up * flap);
+            SEAudio1.Play();
             anim.SetBool("Jump",true);
             anim.SetBool("walk", false);
             Jump = true;
@@ -49,6 +50,7 @@ public class Player3DController : PlayerMoveController
         if (Input.GetButtonDown("JoyStick1"))
         {
             Manager.GController.ChangeDimension();
+            SEAudio2.Play();
         }
         //救済措置
         if (Input.GetKeyDown(KeyCode.Z))
