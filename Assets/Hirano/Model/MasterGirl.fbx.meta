@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 41c2923d3c5d61741a3015648e434335
-timeCreated: 1528090902
+guid: 9410e58a1b72b734889ee9a4bde67252
+timeCreated: 1529555797
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -14,48 +14,50 @@ ModelImporter:
     100012: armPole.L_end
     100014: armPole.R
     100016: armPole.R_end
-    100018: chest
-    100020: foot.L
-    100022: foot.R
-    100024: footIK.L
-    100026: footIK.L_end
-    100028: footIK.R
-    100030: footIK.R_end
-    100032: forearm.L
-    100034: forearm.R
-    100036: hand.L
-    100038: hand.L_end
-    100040: hand.R
-    100042: hand.R_end
-    100044: head
-    100046: head_end
-    100048: heel.02.L
-    100050: heel.02.L_end
-    100052: heel.02.R
-    100054: heel.02.R_end
-    100056: heel.L
-    100058: heel.R
-    100060: hips
-    100062: LegPole.L
-    100064: LegPole.L_end
-    100066: LegPole.R
-    100068: LegPole.R_end
-    100070: MagicalAdventuel3
-    100072: //RootNode
-    100074: neck
-    100076: shin.L
-    100078: shin.R
-    100080: shoulder.L
-    100082: shoulder.R
-    100084: spine
-    100086: thigh.L
-    100088: thigh.R
-    100090: toe.L
-    100092: toe.L_end
-    100094: toe.R
-    100096: toe.R_end
-    100098: upper_arm.L
-    100100: upper_arm.R
+    100018: Camera
+    100020: chest
+    100022: foot.L
+    100024: foot.R
+    100026: footIK.L
+    100028: footIK.L_end
+    100030: footIK.R
+    100032: footIK.R_end
+    100034: forearm.L
+    100036: forearm.R
+    100038: hand.L
+    100040: hand.L_end
+    100042: hand.R
+    100044: hand.R_end
+    100046: head
+    100048: head_end
+    100050: heel.02.L
+    100052: heel.02.L_end
+    100054: heel.02.R
+    100056: heel.02.R_end
+    100058: heel.L
+    100060: heel.R
+    100062: hips
+    100064: LegPole.L
+    100066: LegPole.L_end
+    100068: LegPole.R
+    100070: LegPole.R_end
+    100072: MagicalAdventuel3
+    100074: //RootNode
+    100076: neck
+    100078: Point
+    100080: shin.L
+    100082: shin.R
+    100084: shoulder.L
+    100086: shoulder.R
+    100088: spine
+    100090: thigh.L
+    100092: thigh.R
+    100094: toe.L
+    100096: toe.L_end
+    100098: toe.R
+    100100: toe.R_end
+    100102: upper_arm.L
+    100104: upper_arm.R
     400000: armature
     400002: armIK.L
     400004: armIK.L_end
@@ -65,58 +67,64 @@ ModelImporter:
     400012: armPole.L_end
     400014: armPole.R
     400016: armPole.R_end
-    400018: chest
-    400020: foot.L
-    400022: foot.R
-    400024: footIK.L
-    400026: footIK.L_end
-    400028: footIK.R
-    400030: footIK.R_end
-    400032: forearm.L
-    400034: forearm.R
-    400036: hand.L
-    400038: hand.L_end
-    400040: hand.R
-    400042: hand.R_end
-    400044: head
-    400046: head_end
-    400048: heel.02.L
-    400050: heel.02.L_end
-    400052: heel.02.R
-    400054: heel.02.R_end
-    400056: heel.L
-    400058: heel.R
-    400060: hips
-    400062: LegPole.L
-    400064: LegPole.L_end
-    400066: LegPole.R
-    400068: LegPole.R_end
-    400070: MagicalAdventuel3
-    400072: //RootNode
-    400074: neck
-    400076: shin.L
-    400078: shin.R
-    400080: shoulder.L
-    400082: shoulder.R
-    400084: spine
-    400086: thigh.L
-    400088: thigh.R
-    400090: toe.L
-    400092: toe.L_end
-    400094: toe.R
-    400096: toe.R_end
-    400098: upper_arm.L
-    400100: upper_arm.R
+    400018: Camera
+    400020: chest
+    400022: foot.L
+    400024: foot.R
+    400026: footIK.L
+    400028: footIK.L_end
+    400030: footIK.R
+    400032: footIK.R_end
+    400034: forearm.L
+    400036: forearm.R
+    400038: hand.L
+    400040: hand.L_end
+    400042: hand.R
+    400044: hand.R_end
+    400046: head
+    400048: head_end
+    400050: heel.02.L
+    400052: heel.02.L_end
+    400054: heel.02.R
+    400056: heel.02.R_end
+    400058: heel.L
+    400060: heel.R
+    400062: hips
+    400064: LegPole.L
+    400066: LegPole.L_end
+    400068: LegPole.R
+    400070: LegPole.R_end
+    400072: MagicalAdventuel3
+    400074: //RootNode
+    400076: neck
+    400078: Point
+    400080: shin.L
+    400082: shin.R
+    400084: shoulder.L
+    400086: shoulder.R
+    400088: spine
+    400090: thigh.L
+    400092: thigh.R
+    400094: toe.L
+    400096: toe.L_end
+    400098: toe.R
+    400100: toe.R_end
+    400102: upper_arm.L
+    400104: upper_arm.R
+    2000000: Camera
     2100000: palette
     4300000: MagicalAdventuel3
-    7400000: armature|Atack.001
+    7400000: armature|Atack
     7400002: armature|Jump
     7400004: armature|Stand
-    7400006: armature|Walk
-    7400008: armature|Stand (1)
+    7400006: armature|TitleIdole
+    7400008: armature|Walk
     7400010: armature|Jump
-    7400012: armature|Walk
+    7400012: armature|TitleIdole
+    7400014: armature|Stand
+    7400016: armature|Walk
     9500000: //RootNode
+    10800000: Point
     13700000: MagicalAdventuel3
   externalObjects:
   - first:
@@ -151,10 +159,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: armature|Walk
-      takeName: armature|Walk
+      name: armature|TitleIdole
+      takeName: armature|TitleIdole
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -182,7 +190,7 @@ ModelImporter:
       name: armature|Jump
       takeName: armature|Jump
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -235,10 +243,38 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
+      name: armature|TitleIdole
+      takeName: armature|TitleIdole
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
       name: armature|Walk
       takeName: armature|Walk
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 40
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -464,13 +500,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: MasterGirl_Ver2(Clone)
+    - name: MasterGirl 1(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: armature
-      parentName: MasterGirl_Ver2(Clone)
+      parentName: MasterGirl 1(Clone)
       position: {x: -0, y: 0, z: 0}
       rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
       scale: {x: 100, y: 100, z: 100}
@@ -487,18 +523,18 @@ ModelImporter:
     - name: chest
       parentName: spine
       position: {x: 1.0654021e-11, y: 0.0021569962, z: -7.3518434e-11}
-      rotation: {x: -0.056328792, y: 0.00000011901932, z: 0.000000006681162, w: 0.9984124}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: -0.056328792, y: 0.00000011901844, z: 0.0000000066408314, w: 0.9984124}
+      scale: {x: 1, y: 1, z: 0.99999994}
     - name: neck
       parentName: chest
-      position: {x: 2.5100933e-11, y: 0.004064137, z: 0.000031227766}
-      rotation: {x: 0.09321477, y: -0.00000012321456, z: -0.000000011061889, w: 0.99564606}
-      scale: {x: 0.9999998, y: 1.0000001, z: 1}
+      position: {x: 2.684716e-11, y: 0.004064136, z: 0.000031227763}
+      rotation: {x: 0.09321477, y: -0.00000011552866, z: -0.00000001062661, w: 0.99564606}
+      scale: {x: 0.9999998, y: 1, z: 1}
     - name: head
       parentName: neck
-      position: {x: -7.342109e-12, y: 0.0023849718, z: -2.8871e-10}
-      rotation: {x: -0.07590115, y: 0.000000009013588, z: 0.000000017659476, w: 0.9971153}
-      scale: {x: 0.99999994, y: 1, z: 0.99999964}
+      position: {x: -6.337217e-11, y: 0.0023849732, z: -2.5145708e-10}
+      rotation: {x: -0.07590115, y: -0.000000006300772, z: 0.000000017978456, w: 0.9971153}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999976}
     - name: head_end
       parentName: head
       position: {x: -0, y: 0.018849852, z: 0}
@@ -506,24 +542,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: shoulder.L
       parentName: chest
-      position: {x: -0.00049360574, y: 0.0032628342, z: 0.0008018518}
-      rotation: {x: -0.5771137, y: 0.38684255, z: 0.40069774, w: 0.5972722}
-      scale: {x: 1, y: 1, z: 1.0000001}
+      position: {x: -0.00049360574, y: 0.003262833, z: 0.0008018518}
+      rotation: {x: -0.5771137, y: 0.3868425, z: 0.40069765, w: 0.5972722}
+      scale: {x: 0.9999998, y: 0.9999999, z: 0.9999999}
     - name: upper_arm.L
       parentName: shoulder.L
-      position: {x: -0.00074926164, y: 0.0043316106, z: -0.00028611964}
-      rotation: {x: 0.15179978, y: -0.7289936, z: 0.13408267, w: 0.6538709}
-      scale: {x: 0.9999993, y: 0.9999991, z: 1.0000001}
+      position: {x: -0.0007492618, y: 0.0043316106, z: -0.00028612083}
+      rotation: {x: 0.15179984, y: -0.72899354, z: 0.13408276, w: 0.6538709}
+      scale: {x: 0.9999998, y: 0.9999994, z: 1.0000001}
     - name: forearm.L
       parentName: upper_arm.L
-      position: {x: 9.65083e-10, y: 0.003246283, z: -8.381903e-11}
-      rotation: {x: -0.0013205555, y: 0.10242281, z: 0.00012713668, w: 0.9947401}
-      scale: {x: 1.0000007, y: 1.0000005, z: 0.9999998}
+      position: {x: -1.5832484e-10, y: 0.003246283, z: -9.3132255e-12}
+      rotation: {x: -0.001320578, y: 0.10242273, z: 0.00012706964, w: 0.9947401}
+      scale: {x: 1.0000012, y: 1.0000006, z: 1}
     - name: hand.L
       parentName: forearm.L
-      position: {x: -6.1001626e-10, y: 0.004516206, z: 2.9802322e-10}
-      rotation: {x: -0.0062278807, y: 0.67225677, z: -0.0050772885, w: 0.7402744}
-      scale: {x: 1.0000002, y: 1.0000001, z: 1}
+      position: {x: 7.1246176e-10, y: 0.0045162067, z: -1.862645e-10}
+      rotation: {x: -0.006227915, y: 0.67225677, z: -0.0050772554, w: 0.7402744}
+      scale: {x: 1, y: 0.9999997, z: 0.99999994}
     - name: hand.L_end
       parentName: hand.L
       position: {x: -0, y: 0.0014278113, z: 0}
@@ -531,24 +567,24 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: shoulder.R
       parentName: chest
-      position: {x: 0.0004936058, y: 0.0032628342, z: 0.0008018518}
+      position: {x: 0.0004936058, y: 0.003262833, z: 0.00080185186}
       rotation: {x: -0.5771136, y: -0.38684252, z: -0.40069765, w: 0.5972722}
       scale: {x: 1, y: 1.0000001, z: 1}
     - name: upper_arm.R
       parentName: shoulder.R
-      position: {x: 0.0007492619, y: 0.004331611, z: -0.00028611853}
+      position: {x: 0.00074926193, y: 0.004331611, z: -0.00028611973}
       rotation: {x: 0.1517998, y: 0.72899354, z: -0.13408275, w: 0.6538708}
-      scale: {x: 0.9999994, y: 0.9999995, z: 0.9999999}
+      scale: {x: 0.99999917, y: 0.9999995, z: 0.99999994}
     - name: forearm.R
       parentName: upper_arm.R
-      position: {x: 6.0535965e-10, y: 0.0032462825, z: 1.862645e-10}
-      rotation: {x: -0.0013205111, y: -0.102422774, z: -0.00012705475, w: 0.9947401}
-      scale: {x: 1.0000008, y: 1.0000004, z: 0.9999999}
+      position: {x: -7.404014e-10, y: 0.003246283, z: -1.11758706e-10}
+      rotation: {x: -0.0013205557, y: -0.10242282, z: -0.00012702493, w: 0.9947401}
+      scale: {x: 1.000001, y: 1.0000004, z: 0.99999976}
     - name: hand.R
       parentName: forearm.R
-      position: {x: -6.9849193e-10, y: 0.0045162076, z: 1.4901161e-10}
-      rotation: {x: -0.0062279813, y: -0.67225677, z: 0.005077332, w: 0.7402744}
-      scale: {x: 0.9999999, y: 0.9999998, z: 0.9999997}
+      position: {x: -1.2107193e-10, y: 0.0045162076, z: -7.4505804e-11}
+      rotation: {x: -0.006227974, y: -0.67225677, z: 0.00507728, w: 0.7402744}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1}
     - name: hand.R_end
       parentName: hand.R
       position: {x: -0, y: 0.0014278113, z: 0}
@@ -714,11 +750,21 @@ ModelImporter:
       position: {x: -0, y: 0.0011617191, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Camera
+      parentName: MasterGirl 1(Clone)
+      position: {x: -0.44909206, y: 3.3305004, z: 8.841871}
+      rotation: {x: -0.0015286896, y: -0.99805987, z: 0.05595179, w: -0.027268767}
+      scale: {x: 499.99997, y: 500.00003, z: 500}
     - name: MagicalAdventuel3
-      parentName: MasterGirl_Ver2(Clone)
+      parentName: MasterGirl 1(Clone)
       position: {x: 0.106922604, y: 0, z: -0.16577914}
       rotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
       scale: {x: 19.029076, y: 19.029076, z: 19.029076}
+    - name: Point
+      parentName: MasterGirl 1(Clone)
+      position: {x: -1.5215319, y: 2.2335858, z: 1.5519148}
+      rotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
