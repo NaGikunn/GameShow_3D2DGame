@@ -190,64 +190,68 @@ namespace StateMachine
                     owner.ray = new Ray(owner.gameObject.transform.position, Vector3.right * owner.moveVec);
 
                     // シーンビューにRayを可視化
-                    Debug.DrawRay(owner.ray.origin, owner.ray.direction * 5.0f, Color.red, 0.0f);
+                    Debug.DrawRay(owner.ray.origin, owner.ray.direction * 7.0f, Color.red, 0.0f);
 
                     // Rayのhit情報を取得する(レイ、衝突したオブジェクトの情報、長さ、レイヤー)
-                    if (Physics.Raycast(owner.ray, out hit, 5.0f))
+                    if (Physics.Raycast(owner.ray, out hit, 3.0f))
                     {
 
                         // Rayがhitしたオブジェクトのタグ名を取得
                         hitTag = hit.collider.tag;
 
                         //タグが設定されてなかったら(ステージのタグなら)
-                        if (hitTag != "Untagged")
+                        if (hitTag == "Untagged")
                         {
                             if (owner.IsFly)
                             {
                                 //障害物を迂回する＠飛行
+
                             }
                             else
                             {
                                 //障害物を迂回する＠歩行
+                                owner.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(owner.gameObject.GetComponent<Rigidbody>().velocity.x, 10, 0);
                             }
                         }
                     }
-
-                    diff = (targetPoint - owner.transform.position);
-
-                    //移動方向に応じて向きの切り替え
-                    if (diff.x > 0)
+                    else
                     {
-                        owner.moveVec = 1;
-                        //目標の方向を向いて進む 歩行型は向きは変わらない
-                        if (owner.IsFly)
-                            owner.transform.rotation = Quaternion.FromToRotation(Vector3.right, diff);
-                        owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
+                        diff = (targetPoint - owner.transform.position);
 
+                        //移動方向に応じて向きの切り替え
+                        if (diff.x > 0)
+                        {
+                            owner.moveVec = 1;
+                            //目標の方向を向いて進む 歩行型は向きは変わらない
+                            if (owner.IsFly)
+                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.right, diff);
+                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
+
+                        }
+                        else if (diff.x < 0)
+                        {
+                            owner.moveVec = -1;
+                            //
+                            if (owner.IsFly)
+                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.left, diff);
+                            owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
+
+                        }
+                        owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
+
+
+                        // 目標地点の方向を向く
+                        //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
+                        //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
+                        //// 前方に進む
+                        //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
                     }
-                    else if (diff.x < 0)
-                    {
-                        owner.moveVec = -1;
-                        //
-                        if (owner.IsFly)
-                            owner.transform.rotation = Quaternion.FromToRotation(Vector3.left, diff);
-                        owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
-
-                    }
-                    owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
-
-
-                    // 目標地点の方向を向く
-                    //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
-                    //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
-                    //// 前方に進む
-                    //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
-
                 }
             }
 
             public override void Exit()
             {
+                //フラグを下げる
                 owner.P_Targetlostflg = false;
             }
 

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114248823738311046}
   - component: {fileID: 54099175667824330}
   - component: {fileID: 65476168367209090}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,6 +265,7 @@ MonoBehaviour:
   StayPoint:
   - {fileID: 4635078498438310}
   - {fileID: 4740508200188168}
+  StayPos: []
   speed: 4
   WalkStopTime: 1
   TargetLostTime: 4
