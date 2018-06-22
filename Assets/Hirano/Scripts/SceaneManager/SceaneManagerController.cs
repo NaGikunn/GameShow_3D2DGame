@@ -82,7 +82,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
     //白のフェードイン
     public void WhiteFadeIn()
     {
-        Whitealfa += 0.3f * Time.deltaTime;
+        Whitealfa += 0.4f * Time.deltaTime;
         WhiteImage.color = new Color(255, 255, 255, Whitealfa);
     }
 
