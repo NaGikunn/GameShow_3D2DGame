@@ -1,0 +1,57 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public abstract class PlayerMoveController : MonoBehaviour
+{
+    protected PlayerManagerController Manager;
+    protected Vector3 playerposition;
+    protected Animator anim;
+    protected Rigidbody rig;
+    protected float flap = 250.0f;
+    protected bool Jump = false;
+    public static bool Clear = false;
+    protected AudioSource SEAudio1;
+    protected AudioSource SEAudio2;
+    void Awake()
+    {
+        playerposition = transform.position;
+        anim = GetComponent<Animator>();
+        rig = GetComponent<Rigidbody>();
+        AudioSource[] audiosorce = GetComponents<AudioSource>();
+        SEAudio1 = audiosorce[0];
+        SEAudio2 = audiosorce[1];
+        Manager = GetComponent<PlayerManagerController>();
+        Clear = false;
+        PositionInitialization();
+    }
+
+    public abstract void PositionInitialization();
+    public abstract void Movement();
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == ("Stage"))
+        {
+            Jump = false;
+            anim.SetBool("Jump", false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == ("Gole"))
+        {
+            Clear = true;
+            Manager.ClearLabel.SetActive(true);
+            Invoke("StageSlect", 2.0f);
+        }
+    }
+ 
+     void StageSlect()
+    {
+        SceneManager.LoadScene("StageSelect");
+    }
+}
