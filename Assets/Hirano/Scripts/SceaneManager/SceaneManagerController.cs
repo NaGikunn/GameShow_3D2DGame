@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System;
 public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerController>
 {
     //黒の画像
@@ -15,54 +15,84 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
     //アルファチャンネル
     public float Whitealfa = 1.0f;
     public float Blackalfa = 1.0f;
-
-    public void NowSceneManagement()
+    private AudioSource BGM;
+    private bool sceaneflg;
+    private float TIME = 0.0f;
+    void Start()
     {
+        TIME = 0.0f;
+        BGM = GetComponent<AudioSource>();
+        sceaneflg = false;
+    }
+
+    public void  NowSceneManagement()
+    {
+
         //現在のシーン
         NowScene = SceneManager.GetActiveScene().name;
         //タイトルなら
         if (NowScene == "Title")
         {
+            if (Input.anyKeyDown)
+            {
+                sceaneflg = true;
+            }
+
             if (Whitealfa >= 0.0f)
             {
                 WhiteFadeOut();
             }
             //すべてのボタン
-            if (Input.anyKeyDown)
+            if (sceaneflg)
             {
-                SceneManager.LoadScene("StageSelect");
+                TIME += Time.deltaTime;
+                if (Blackalfa <= 1.0f)
+                {
+                    BlackFadeIn();
+                }
+                if (BGM.volume >= 0.0f)
+                {
+                    BGMFadeOut();
+                }
+                if (TIME >= 3.0f)
+                {
+                    SceneManager.LoadScene("StageSelect");
+                }
             }
         }
 
         //セレクト画面なら
-        if(NowScene == "StageSelect")
+        if (NowScene == "StageSelect")
         {
-            
-            if(Blackalfa >= 0.0f)
-            {
-                BlackFadeOut();
-            }
-
-        }
-
-        //チュートリアルステージなら
-        if(NowScene == "StageTutorial_m")
-        {
-            //初めに黒のフェードアウト
             if (Blackalfa >= 0.0f)
             {
                 BlackFadeOut();
             }
+        }
 
-            //clear時
-            if (PlayerMoveController.Clear)
+        //チュートリアルステージなら
+        if (NowScene == "StageTutorial_m")
+        {
+        //初めに黒のフェードアウト
+        if (Blackalfa >= 0.0f)
+        {
+             BlackFadeOut();
+        }
+
+        //clear時
+        if (PlayerMoveController.Clear)
+        {
+            if (Whitealfa <= 1.0f)
             {
-                if(Whitealfa <= 1.0f)
-                {
-                    WhiteFadeIn();
-                }
+               WhiteFadeIn();
             }
         }
+    }
+}
+
+    public void BGMFadeOut()
+    {
+        BGM.volume -= 0.3f * Time.deltaTime;
     }
 
     //白のフェードアウト

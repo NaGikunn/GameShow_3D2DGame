@@ -47,6 +47,11 @@ namespace StateMachine
         [SerializeField]
         float margin = 4f;               //オブジェクトの大きさ
 
+
+
+        public bool Flg = false;
+
+
         private float changeTargetDistance = 1f;//接触地点への判定距離
 
         void Start()
@@ -98,7 +103,7 @@ namespace StateMachine
             //巡回地点＠Enemy owner.変数名 で呼び出し
             //public Transform[] StayPoint;
             //目標地点
-            Vector3 targetPoint;
+            Vector3 targetPoint = new Vector3();
             Vector3 diff;
 
             public override void Enter()
@@ -127,88 +132,90 @@ namespace StateMachine
 
             public override void Execute()//Update処理
             {
-                ///<summary>
-                ///目標地点の関係で移動ができなくなったとき
-                ///初期位置にワープして対応する
-                ///</summary>
-                //徘徊状態か、警戒状態の時のみ確認
-                if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
+                if (owner.Flg)
                 {
-                    Count_MoveCancel += Time.deltaTime;
-                }
-                //5秒毎に稼働状態を確認
-                if (Count_MoveCancel >= 5.0f)
-                {
-                    ReSpawn();
-                }
-                //間に障害物がない状態で追跡範囲に入ったら、追跡ステートに遷移
-                if (owner.pursuit.PursuitFlg && owner.pursuit.hitTag == "Player" && !owner.attack.AttackStopflg)
-                {
-                    owner.ChangeState(status.Pursuit);
-                }
-                // 目標地点との距離が小さければ、
-                float sqrDistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
-                if (sqrDistanceToTarget < owner.changeTargetDistance)
-                {
-                    if (owner.P_Targetlostflg)
+                    ///<summary>
+                    ///目標地点の関係で移動ができなくなったとき
+                    ///初期位置にワープして対応する
+                    ///</summary>
+                    //徘徊状態か、警戒状態の時のみ確認
+                    if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
                     {
-                        if (StayTime < owner.TargetLostTime)
+                        Count_MoveCancel += Time.deltaTime;
+                    }
+                    //5秒毎に稼働状態を確認
+                    if (Count_MoveCancel >= 5.0f)
+                    {
+                        ReSpawn();
+                    }
+                    //間に障害物がない状態で追跡範囲に入ったら、追跡ステートに遷移
+                    //if (owner.pursuit.PursuitFlg && owner.pursuit.hitTag == "Player" && !owner.attack.AttackStopflg)
+                    //{
+                    //    owner.ChangeState(status.Pursuit);
+                    //}
+                    // 目標地点との距離が小さければ、
+                    float sqrDistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
+                    if (sqrDistanceToTarget < owner.changeTargetDistance)
+                    {
+                        if (owner.P_Targetlostflg)
+                        {
+                            if (StayTime < owner.TargetLostTime)
+                            {
+                                StayTime += Time.deltaTime;
+                            }
+                            else
+                            {
+                                owner.P_Targetlostflg = false;
+                            }
+                        }
+                        //その場で一定時間待機
+                        else if (StayTime < owner.WalkStopTime)
                         {
                             StayTime += Time.deltaTime;
+                            Count_MoveCancel = 0;
                         }
+                        //目標地点を変更してカウントリセット
                         else
                         {
-                            owner.P_Targetlostflg = false;
+                            Change_Point();
+                            StayTime = 0;
                         }
                     }
-                    //その場で一定時間待機
-                    else if (StayTime < owner.WalkStopTime)
-                    {
-                        StayTime += Time.deltaTime;
-                        Count_MoveCancel = 0;
-                    }
-                    //目標地点を変更してカウントリセット
                     else
                     {
-                        Change_Point();
-                        StayTime = 0;
+                        diff = (targetPoint - owner.transform.position);
+
+                        //移動方向に応じて向きの切り替え
+                        if (diff.x > 0)
+                        {
+                            owner.moveVec = 1;
+                            //目標の方向を向いて進む 歩行型は向きは変わらない
+                            if (owner.IsFly)
+                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.right, diff);
+                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
+
+                        }
+                        else if (diff.x < 0)
+                        {
+                            owner.moveVec = -1;
+                            //
+                            if (owner.IsFly)
+                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.left, diff);
+                            owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
+
+                        }
+                        owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
+
                     }
+
+                    // 目標地点の方向を向く
+                    //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
+                    //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
+                    //// 前方に進む
+                    //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
+
+
                 }
-                else
-                {
-                    diff = (targetPoint - owner.transform.position);
-
-                    //移動方向に応じて向きの切り替え
-                    if (diff.x > 0)
-                    {
-                        owner.moveVec = 1;
-                        //目標の方向を向いて進む 歩行型は向きは変わらない
-                        if (owner.IsFly)
-                            owner.transform.rotation = Quaternion.FromToRotation(Vector3.right, diff);
-                        owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
-
-                    }
-                    else if (diff.x < 0)
-                    {
-                        owner.moveVec = -1;
-                        //
-                        if (owner.IsFly)
-                            owner.transform.rotation = Quaternion.FromToRotation(Vector3.left, diff);
-                        owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
-
-                    }
-                    owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
-
-                }
-
-                // 目標地点の方向を向く
-                //Quaternion targetRotation = Quaternion.LookRotation(targetPoint - owner.transform.position);
-                //owner.transform.rotation = Quaternion.Slerp(owner.transform.rotation, targetRotation, Time.deltaTime * owner.rotationSmooth);
-                //// 前方に進む
-                //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
-
-
-
             }
 
             public override void Exit()
@@ -227,7 +234,7 @@ namespace StateMachine
                     PointCount = 0;
                 }
                 //目標地点を設定する
-                targetPoint = owner.StayPoint[PointCount].position;
+                //targetPoint = owner.StayPoint[PointCount].position;
             }
 
             void ReSpawn()
