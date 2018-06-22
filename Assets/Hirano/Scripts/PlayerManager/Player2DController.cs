@@ -60,6 +60,7 @@ public class Player2DController : PlayerMoveController
             rig.AddForce(Vector2.up * flap);
             anim.SetBool("Jump", true);
             anim.SetBool("walk", false);
+            SEAudio1.Play();
             Jump = true;
         }
         //BFFALO　２番キーを押したら
@@ -70,6 +71,7 @@ public class Player2DController : PlayerMoveController
             transform.localPosition = pos;
 
             Manager.GController.ChangeDimension();
+            SEAudio2.Play();
         }
     }
 }
