@@ -68,10 +68,11 @@ namespace StateMachine
             stateList.Add(new StateAttack(this));
 
             stateMachine = new StateMachine<Enemy>();
-
+            //最初は巡回から始める
             ChangeState(status.Stay);
 
         }
+        //接触したらダメージ
         void OnCollisionEnter(Collision collider)
         {
             if (collider.gameObject.tag == "Player")
@@ -133,6 +134,10 @@ namespace StateMachine
                     ////地点を取得して目標地点に設定
                     Change_Point();
                 }
+                if (!owner.IsFly)
+                {
+                    owner.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+                }
             }
 
             public override void Execute()//Update処理
@@ -160,19 +165,19 @@ namespace StateMachine
                 float DistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
                 if (DistanceToTarget < owner.changeTargetDistance)
                 {
-                    if (owner.P_Targetlostflg)
-                    {
-                        if (StayTime < owner.TargetLostTime)
-                        {
-                            StayTime += Time.deltaTime;
-                        }
-                        else
-                        {
-                            owner.P_Targetlostflg = false;
-                        }
-                    }
+                    //if (owner.P_Targetlostflg)
+                    //{
+                    //    if (StayTime < owner.TargetLostTime)
+                    //    {
+                    //        StayTime += Time.deltaTime;
+                    //    }
+                    //    else
+                    //    {
+                    //        owner.P_Targetlostflg = false;
+                    //    }
+                    //}
                     //その場で一定時間待機
-                    else if (StayTime < owner.WalkStopTime)
+                    if (StayTime < owner.WalkStopTime)
                     {
                         StayTime += Time.deltaTime;
                         Count_MoveCancel = 0;
@@ -199,23 +204,32 @@ namespace StateMachine
                         // Rayがhitしたオブジェクトのタグ名を取得
                         hitTag = hit.collider.tag;
 
-                        //タグが設定されてなかったら(ステージのタグなら)
-                        if (hitTag == "Untagged")
+                        //タステージのタグ
+                        if (hitTag == "Stage")
                         {
                             if (owner.IsFly)
                             {
                                 //障害物を迂回する＠飛行
+                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.down, diff);
+                                owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
 
                             }
                             else
                             {
                                 //障害物を迂回する＠歩行
-                                owner.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(owner.gameObject.GetComponent<Rigidbody>().velocity.x, 10, 0);
+                                owner.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(owner.gameObject.GetComponent<Rigidbody>().velocity.x, 5, 0);
                             }
                         }
+                        else
+                        {
+                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime*owner.moveVec);
+
+                        }
                     }
+                    //正面に何もなく、捕捉もしていないとき
                     else
                     {
+                        //目標地点の方角を取得
                         diff = (targetPoint - owner.transform.position);
 
                         //移動方向に応じて向きの切り替え
@@ -237,7 +251,7 @@ namespace StateMachine
                             owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
 
                         }
-                        owner.transform.localScale = new Vector3(owner.moveVec, 1f, 1f);
+                        owner.transform.localScale = new Vector3(owner.moveVec, owner.transform.localScale.y, owner.transform.localScale.z);
 
 
                         // 目標地点の方向を向く
@@ -246,6 +260,7 @@ namespace StateMachine
                         //// 前方に進む
                         //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
                     }
+                    
                 }
             }
 

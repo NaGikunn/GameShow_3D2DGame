@@ -39,7 +39,7 @@ public class Get_Pursuit : MonoBehaviour {
         }
     }
         //
-        void OnTriggerEnter(Collider collider)
+    void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Player")
             ChangeFlg(); 

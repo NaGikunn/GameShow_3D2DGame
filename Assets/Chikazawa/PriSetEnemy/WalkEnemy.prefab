@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 65476168367209090}
   m_Layer: 9
   m_Name: EnemyA
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4635078498438310}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,9 +55,9 @@ GameObject:
   - component: {fileID: 4304303865534068}
   - component: {fileID: 114661165593478436}
   - component: {fileID: 135930311059584050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pursuit_area
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,9 +72,9 @@ GameObject:
   - component: {fileID: 4171309119634018}
   - component: {fileID: 114414665795332582}
   - component: {fileID: 135470128563404908}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arack_area
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,9 +87,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4801541989096880}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WalkEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,10 +102,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4934201658085858}
-  - component: {fileID: 135385439678506848}
-  m_Layer: 0
+  - component: {fileID: 58396014929750714}
+  m_Layer: 9
   m_Name: Back_Margin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4740508200188168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ Transform:
   m_GameObject: {fileID: 1046436109065968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 8.96, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4304303865534068}
   - {fileID: 4171309119634018}
@@ -237,6 +237,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 104
   m_CollisionDetection: 0
+--- !u!58 &58396014929750714
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402212704887354}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!65 &65476168367209090
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -248,7 +263,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.16, y: 4, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0, z: 0}
 --- !u!114 &114248823738311046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,9 +282,9 @@ MonoBehaviour:
   - {fileID: 4740508200188168}
   StayPos: []
   speed: 4
-  WalkStopTime: 1
-  TargetLostTime: 4
-  attackInterval: 2
+  WalkStopTime: 0
+  TargetLostTime: 0
+  attackInterval: 0
   pursuit: {fileID: 114661165593478436}
   attack: {fileID: 114414665795332582}
   margin: 4
@@ -286,7 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackFlg: 0
   GetAttack: 0
-  enemy: {fileID: 114248823738311046}
+  enemy: {fileID: 0}
   AttackStopflg: 0
 --- !u!114 &114661165593478436
 MonoBehaviour:
@@ -302,18 +317,6 @@ MonoBehaviour:
   PursuitFlg: 0
   enemy: {fileID: 114248823738311046}
   hitTag: 
---- !u!135 &135385439678506848
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1402212704887354}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 4
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135470128563404908
 SphereCollider:
   m_ObjectHideFlags: 1

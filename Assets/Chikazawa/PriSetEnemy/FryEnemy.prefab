@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4166791108863210}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FryEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000198568204168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,9 +51,9 @@ GameObject:
   - component: {fileID: 4663857637431134}
   - component: {fileID: 114356436802602538}
   - component: {fileID: 135141544994222386}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Arack_area
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4189274970319812}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 54720671719654902}
   m_Layer: 9
   m_Name: EnemyB
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4934534487652252}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,9 +117,9 @@ GameObject:
   - component: {fileID: 4789822606552730}
   - component: {fileID: 114113749692754400}
   - component: {fileID: 135062492165691330}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: Pursuit_area
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4518221507718114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ Transform:
   m_GameObject: {fileID: 1463108824895436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4789822606552730}
   - {fileID: 4663857637431134}
@@ -324,14 +324,16 @@ MonoBehaviour:
   - {fileID: 4189274970319812}
   - {fileID: 4934534487652252}
   - {fileID: 4000198568204168}
-  StayPos: []
-  speed: 3
+  StayPos:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  speed: 4
   WalkStopTime: 0
   TargetLostTime: 0
-  attackInterval: 2
-  pursuit: {fileID: 114113749692754400}
-  attack: {fileID: 114356436802602538}
-  margin: 5
+  attackInterval: 0
+  pursuit: {fileID: 0}
+  attack: {fileID: 0}
+  margin: 4
 --- !u!135 &135062492165691330
 SphereCollider:
   m_ObjectHideFlags: 1

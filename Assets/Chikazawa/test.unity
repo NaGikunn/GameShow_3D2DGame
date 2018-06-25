@@ -113,27 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &157772035 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4518221507718114, guid: f53c045537e2aab428ec86242a74fcc5,
-    type: 2}
-  m_PrefabInternal: {fileID: 897209422}
---- !u!4 &198017474 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4635078498438310, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-    type: 2}
-  m_PrefabInternal: {fileID: 647339537}
 --- !u!114 &251443232 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
     type: 2}
   m_PrefabInternal: {fileID: 897209422}
   m_Script: {fileID: 11500000, guid: 5934b90a713109149bd815fda110c912, type: 3}
---- !u!4 &380434262 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000198568204168, guid: f53c045537e2aab428ec86242a74fcc5,
-    type: 2}
-  m_PrefabInternal: {fileID: 897209422}
 --- !u!1 &551870332
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 551870332}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -4.82, y: -9.44, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -256,11 +241,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: StayPoint.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4801541989096880, guid: af2e38fe2b01eff4f8ccf883948cf58a, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.09
@@ -293,41 +273,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 551870335}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: WalkStopTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: TargetLostTime
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: attackInterval
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: pursuit
-      value: 
-      objectReference: {fileID: 1221913112}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: attack
-      value: 
-      objectReference: {fileID: 1538015201}
-    - target: {fileID: 114661165593478436, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 2000643939}
     - target: {fileID: 114414665795332582, guid: af2e38fe2b01eff4f8ccf883948cf58a,
         type: 2}
       propertyPath: enemy
@@ -335,37 +280,12 @@ Prefab:
       objectReference: {fileID: 251443232}
     - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
         type: 2}
-      propertyPath: StayPoint.Array.data[0]
+      propertyPath: player
       value: 
-      objectReference: {fileID: 198017474}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: StayPoint.Array.data[1]
-      value: 
-      objectReference: {fileID: 969986177}
-    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: IsFly
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1046436109065968, guid: af2e38fe2b01eff4f8ccf883948cf58a, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 65476168367209090, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-        type: 2}
-      propertyPath: m_Center.y
-      value: -0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 135385439678506848, guid: af2e38fe2b01eff4f8ccf883948cf58a, type: 2}
+      objectReference: {fileID: 551870335}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af2e38fe2b01eff4f8ccf883948cf58a, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &772375280 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4189274970319812, guid: f53c045537e2aab428ec86242a74fcc5,
-    type: 2}
-  m_PrefabInternal: {fileID: 897209422}
 --- !u!1 &786737472
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,16 +460,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPos.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPoint.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4166791108863210, guid: f53c045537e2aab428ec86242a74fcc5, type: 2}
       propertyPath: m_LocalPosition.x
       value: -10.37
@@ -589,21 +499,6 @@ Prefab:
       objectReference: {fileID: 551870335}
     - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
         type: 2}
-      propertyPath: IsFly
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: attackInterval
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
       propertyPath: pursuit
       value: 
       objectReference: {fileID: 1221913112}
@@ -612,53 +507,9 @@ Prefab:
       propertyPath: attack
       value: 
       objectReference: {fileID: 1538015201}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: margin
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114113749692754400, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 251443232}
-    - target: {fileID: 114356436802602538, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 251443232}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPoint.Array.data[0]
-      value: 
-      objectReference: {fileID: 157772035}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPoint.Array.data[1]
-      value: 
-      objectReference: {fileID: 772375280}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPoint.Array.data[2]
-      value: 
-      objectReference: {fileID: 1241337435}
-    - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
-        type: 2}
-      propertyPath: StayPoint.Array.data[3]
-      value: 
-      objectReference: {fileID: 380434262}
-    - target: {fileID: 1463108824895436, guid: f53c045537e2aab428ec86242a74fcc5, type: 2}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f53c045537e2aab428ec86242a74fcc5, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &969986177 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4740508200188168, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-    type: 2}
-  m_PrefabInternal: {fileID: 647339537}
 --- !u!1 &970150125
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +523,7 @@ GameObject:
   - component: {fileID: 970150126}
   m_Layer: 10
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -835,11 +686,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 647339537}
   m_Script: {fileID: 11500000, guid: 69346a7cfd820e04b9b3763d2ff43143, type: 3}
---- !u!4 &1241337435 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4934534487652252, guid: f53c045537e2aab428ec86242a74fcc5,
-    type: 2}
-  m_PrefabInternal: {fileID: 897209422}
 --- !u!1 &1285918109
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,7 +699,7 @@ GameObject:
   - component: {fileID: 1285918110}
   m_Layer: 10
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -918,7 +764,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1285918109}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.8, y: -6, z: 0}
+  m_LocalPosition: {x: 0.8, y: -5, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -930,29 +776,3 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 647339537}
   m_Script: {fileID: 11500000, guid: 67e148c5e5a446a4996d20b4526717bf, type: 3}
---- !u!1 &1925023901 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1402212704887354, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-    type: 2}
-  m_PrefabInternal: {fileID: 647339537}
---- !u!58 &1925023903
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1925023901}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
---- !u!114 &2000643939 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
-    type: 2}
-  m_PrefabInternal: {fileID: 647339537}
-  m_Script: {fileID: 11500000, guid: 5934b90a713109149bd815fda110c912, type: 3}
