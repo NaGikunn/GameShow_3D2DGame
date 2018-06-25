@@ -3758,13 +3758,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 76367120}
-  - component: {fileID: 76367119}
   - component: {fileID: 76367121}
   - component: {fileID: 76367123}
   - component: {fileID: 76367122}
+  - component: {fileID: 76367119}
   - component: {fileID: 76367124}
   m_Layer: 0
-  m_Name: FadeManager
+  m_Name: SceaneManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3805,10 +3805,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7945a3376230c9e4182adde7db7b46fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackImage: {fileID: 538545042}
-  WhiteImage: {fileID: 1682098325}
-  Whitealfa: 1
-  Blackalfa: 1
 --- !u!114 &76367122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3817,7 +3813,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 76367118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19eedd649ae8437429a0c2b5f6e11134, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d459404346d740449785b1b51fb3238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &76367123
@@ -3828,9 +3824,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 76367118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d329ac57dee8e143b6feada8d1623ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c3cc07e250cd144db5f3b8a70524783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlackImage: {fileID: 538545042}
+  WhiteImage: {fileID: 1682098325}
 --- !u!82 &76367124
 AudioSource:
   m_ObjectHideFlags: 0
