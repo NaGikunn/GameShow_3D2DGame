@@ -37,7 +37,7 @@ public class FadeManagerController : SingletonMonoBehaviour<FadeManagerControlle
     //黒のフェードイン
     public void BlackFadeIn()
     {
-        Blackalfa += 0.3f * Time.deltaTime;
+        Blackalfa += 0.5f * Time.deltaTime;
         BlackImage.color = new Color(0, 0, 0, Blackalfa);
     }
 }

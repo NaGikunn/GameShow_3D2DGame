@@ -12,10 +12,13 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
     private bool sceaneflg;
     //Time
     private float TIME = 0.0f;
-    void Start()
+
+    void Awake()
     {
         TIME = 0.0f;
         sceaneflg = false;
+        FadeManagerController.Blackalfa = 0.0f;
+        //SelectStagePlayer.Load = false;
     }
 
     public void NowSceneManagement()
@@ -26,30 +29,37 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         //タイトルなら
         if (NowScene == "Title")
         {
+            //何かボタンを押したら
             if (Input.anyKeyDown)
             {
                 sceaneflg = true;
             }
 
+            //初めにWhiteImageのアルファを小さくする
             if (FadeManagerController.Whitealfa >= 0.0f)
             {
                 FadeManagerController.Instance.WhiteFadeOut();
             }
-            //すべてのボタン
+            //ボタンを押したら
             if (sceaneflg)
             {
                 TIME += Time.deltaTime;
+                //BlackImageのアルファを多きくする
                 if (FadeManagerController.Blackalfa <= 1.0f)
                 {
                     FadeManagerController.Instance.BlackFadeIn();
                 }
-                if (AudioMnagerController.BGM.volume >= 0.0f)
-                {
-                    AudioMnagerController.Instance.BGMFadeOut();
-                }
+                //BGMを小さくする
+                //if (AudioMnagerController.BGM1.volume >= 0.0f)
+                //{
+                //    AudioMnagerController.Instance.BGMFadeOut();
+                //}
+                //三秒たったら
                 if (TIME >= 3.0f)
                 {
+                    //ステージセレクトへ
                     SceneManager.LoadScene("StageSelect");
+                    TIME = 0.0f;
                 }
             }
         }
@@ -57,10 +67,31 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         //セレクト画面なら
         if (NowScene == "StageSelect")
         {
+            //初めにBlackImageのアルファを小さくする
             if (FadeManagerController.Blackalfa >= 0.0f)
             {
                 FadeManagerController.Instance.BlackFadeOut();
             }
+            //セレクト画面でプレイヤーがステージに触ったら
+            if (SelectStagePlayer.Load)
+            {
+                TIME += Time.deltaTime; 
+                if (FadeManagerController.Blackalfa <= 1.0f)
+                {
+                    FadeManagerController.Instance.BlackFadeIn();
+                }
+                if(AudioMnagerController.BGM1.volume >= 0.0f)
+                {
+                    AudioMnagerController.Instance.BGMFadeOut();
+                }
+            }
+            if(TIME >= 3.0f)
+            {
+                AudioMnagerController.BGM1.Pause();
+                SceneManager.LoadScene("StageTutorial_m");
+                TIME = 0.0f;
+            }
+            //クリアしているときにセレクト画面に来たら白のフェード
             if (PlayerMoveController.Clear)
             {
                 FadeManagerController.Blackalfa = 0.0f;
@@ -71,7 +102,9 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         //チュートリアルステージなら
         if (NowScene == "StageTutorial_m")
         {
-            //初めに黒のフェードアウト
+            //ここが何回も呼ばれてるよ
+            AudioMnagerController.BGM2.Play();
+            //初めにBlackImageのアルファを小さくする
             if (FadeManagerController.Blackalfa >= 0.0f)
             {
                 FadeManagerController.Instance.BlackFadeOut();
@@ -87,10 +120,10 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             }
         }
 
-        if (NowScene == "StageTutorial_m" && !PlayerMoveController.Clear)
-        {
-            FadeManagerController.Whitealfa = 0.0f;
-            return;
-        }
+        //if (NowScene == "StageTutorial_m" && !PlayerMoveController.Clear)
+        //{
+        //    FadeManagerController.Whitealfa = 0.0f;
+        //    return;
+        //}
     }
 }

@@ -22,19 +22,14 @@ public class SelectStagePlayer : MonoBehaviour
     Vector3 playerPos;
     //触ったステージのアニメーター
     Animator stageanim;
-    //フェードさせる画像
-    [SerializeField]
-    Image image;
-    //FadeさせるタイミングFlg
-    bool FadeFlg = false;
-    float alfa = 0.0f;
+    //シーンのロード管理
+    public static bool Load = false;
     // Use this for initialization
     void Start ()
     {
         controller = GetComponent<CharacterController>();
         playerPos = transform.position;
         anim = GetComponent<Animator>();
-        FadeFlg = false;
     }
 	
 	// Update is called once per frame
@@ -56,11 +51,6 @@ public class SelectStagePlayer : MonoBehaviour
             playerPos.y -= 0.5f * Time.deltaTime;
             playerPos.y = 2.0f;
             transform.position = playerPos;
-        }
-        //フェードのタイミングなら
-        if (FadeFlg)
-        {
-            AlfaChannel();
         }
     }
 
@@ -101,20 +91,8 @@ public class SelectStagePlayer : MonoBehaviour
         {
             stageanim = hit.gameObject.GetComponent<Animator>();
             stageanim.SetBool("fly", true);
-            FadeFlg = true;
-            Invoke("LoadingScene",2.0f);
+            Load = true;
         }
-    }
-
-    void AlfaChannel()
-    {
-        image.color = new Color(0, 0, 0, alfa);
-        alfa += 0.01f;
-    }
-
-    void LoadingScene()
-    {
-        SceneManager.LoadScene("StageTutorial_m");
     }
 
 }
