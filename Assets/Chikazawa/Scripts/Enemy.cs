@@ -195,7 +195,7 @@ namespace StateMachine
                     owner.ray = new Ray(owner.gameObject.transform.position, Vector3.right * owner.moveVec);
 
                     // シーンビューにRayを可視化
-                    Debug.DrawRay(owner.ray.origin, owner.ray.direction * 7.0f, Color.red, 0.0f);
+                    Debug.DrawRay(owner.ray.origin, owner.ray.direction * 3.0f, Color.red, 0.0f);
 
                     // Rayのhit情報を取得する(レイ、衝突したオブジェクトの情報、長さ、レイヤー)
                     if (Physics.Raycast(owner.ray, out hit, 3.0f))
@@ -204,25 +204,30 @@ namespace StateMachine
                         // Rayがhitしたオブジェクトのタグ名を取得
                         hTag = hit.collider.tag;
 
-                        //タステージのタグ
+                        //ステージのタグ
                         if (hTag == "Stage")
                         {
                             if (owner.IsFly)
                             {
                                 //障害物を迂回する＠飛行
+                                //上を向く
                                 owner.transform.rotation = Quaternion.FromToRotation(Vector3.down, diff);
+                                //(オブジェクトから見て)右に進む
                                 owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
 
                             }
                             else
                             {
                                 //障害物を迂回する＠歩行
+                                //ジャンプする
                                 owner.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(owner.gameObject.GetComponent<Rigidbody>().velocity.x, 5, 0);
                             }
                         }
+                        //他のオブジェクトにレイが当たっているとき
                         else
                         {
-                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime*owner.moveVec);
+                            //右(左)に進む
+                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime * owner.moveVec);
 
                         }
                     }
@@ -236,21 +241,16 @@ namespace StateMachine
                         if (diff.x > 0)
                         {
                             owner.moveVec = 1;
-                            //目標の方向を向いて進む 歩行型は向きは変わらない
-                            if (owner.IsFly)
-                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.right, diff);
-                            owner.transform.Translate(Vector3.right * owner.speed * Time.deltaTime);
-
                         }
-                        else if (diff.x < 0)
+                        else
                         {
                             owner.moveVec = -1;
-                            //
-                            if (owner.IsFly)
-                                owner.transform.rotation = Quaternion.FromToRotation(Vector3.left, diff);
-                            owner.transform.Translate(Vector3.left * owner.speed * Time.deltaTime);
-
                         }
+                        //目標の方向を向いて進む 歩行型は向きは変わらない
+                        if (owner.IsFly)
+                            owner.transform.rotation = Quaternion.FromToRotation(Vector3.right * owner.moveVec, diff);
+                        owner.transform.Translate(Vector3.right * owner.speed * owner.moveVec * Time.deltaTime);
+
                         owner.transform.localScale = new Vector3(owner.moveVec, owner.transform.localScale.y, owner.transform.localScale.z);
 
 
@@ -260,7 +260,10 @@ namespace StateMachine
                         //// 前方に進む
                         //owner.transform.Translate(Vector3.forward * owner.speed * Time.deltaTime);
                     }
-                    
+                    //歩行型は徘徊中回転しない
+                    if(!owner.IsFly)
+                    owner.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
+
                 }
             }
 
