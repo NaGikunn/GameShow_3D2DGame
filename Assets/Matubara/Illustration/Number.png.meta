@@ -1,26 +1,27 @@
 fileFormatVersion: 2
-guid: 32bd5ae7f4f191f4497531f893b6ab54
-timeCreated: 1529383890
+guid: 75df1241f7e04e04dae73225de895c13
+timeCreated: 1529905423
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: 1
-    21300002: 2
-    21300004: 4
-    21300006: 5
-    21300008: 7
-    21300010: 8
-    21300012: 0
-    21300014: Number
-    21300016: 3
-    21300018: 9
-    21300020: 6
+    21300000: Number1
+    21300002: Number2
+    21300004: Number3
+    21300006: Number4
+    21300008: Number5
+    21300010: Number6
+    21300012: Number7
+    21300014: Number8
+    21300016: Number9
+    21300018: Number 1_9
+    21300020: Number0
+    21300022: Number 1_11
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
-    sRGBTexture: 1
+    sRGBTexture: 0
     linearTexture: 0
     fadeOut: 0
     borderMipMap: 0
@@ -43,7 +44,7 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: -1
-    aniso: -1
+    aniso: 1
     mipBias: -1
     wrapU: 1
     wrapV: 1
@@ -62,14 +63,14 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 8
+  textureType: 2
   textureShape: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
   platformSettings:
   - buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -79,7 +80,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -89,7 +90,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -102,81 +103,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 1
+      name: Number1
       rect:
         serializedVersion: 2
-        x: 20
-        y: 587
-        width: 171
-        height: 169
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: 2
-      rect:
-        serializedVersion: 2
-        x: 171
-        y: 587
-        width: 171
-        height: 169
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: 4
-      rect:
-        serializedVersion: 2
-        x: 11
-        y: 419
-        width: 171
-        height: 169
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: 5
-      rect:
-        serializedVersion: 2
-        x: 171
-        y: 419
-        width: 171
-        height: 169
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: 7
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 252
-        width: 171
-        height: 169
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: 8
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 249
+        x: 0
+        y: 585
         width: 171
         height: 171
       alignment: 0
@@ -186,13 +117,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: 0
+      name: Number2
       rect:
         serializedVersion: 2
-        x: 15
-        y: 68
+        x: 171
+        y: 585
         width: 171
-        height: 169
+        height: 171
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,57 +131,141 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Number
+      name: Number3
       rect:
         serializedVersion: 2
-        x: 153
-        y: 57
-        width: 149
-        height: 149
-      alignment: 9
+        x: 342
+        y: 585
+        width: 170
+        height: 171
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: 3
+      name: Number4
       rect:
         serializedVersion: 2
-        x: 330
-        y: 587
-        width: 162
-        height: 169
+        x: 0
+        y: 414
+        width: 171
+        height: 171
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: 9
+      name: Number5
       rect:
         serializedVersion: 2
-        x: 340
-        y: 254
-        width: 164
-        height: 169
+        x: 171
+        y: 414
+        width: 171
+        height: 171
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: 6
+      name: Number6
       rect:
         serializedVersion: 2
-        x: 346
-        y: 418
-        width: 148
-        height: 169
+        x: 342
+        y: 414
+        width: 170
+        height: 171
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number7
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 244
+        width: 171
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number8
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 243
+        width: 171
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number9
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 243
+        width: 170
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number 1_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 63
+        width: 171
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Number 1_11
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 63
+        width: 171
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
