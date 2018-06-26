@@ -8,9 +8,9 @@ public class Get_Pursuit : MonoBehaviour {
     public bool PursuitFlg = false;
 
     public StateMachine.Enemy enemy;
-    
     Ray ray;
     Vector3 DirecthionToPlayer;
+    StateMachine.StateMachine<StateMachine.status> Estate;
 
     // outパラメータ用に、Rayのヒット情報を取得するための変数を用意
     RaycastHit hit;
@@ -19,7 +19,7 @@ public class Get_Pursuit : MonoBehaviour {
 
     void Update()
     {
-        if (PursuitFlg)
+        if (PursuitFlg /*||Estate.CurrentState.*/)
         {
             DirecthionToPlayer = enemy.player.transform.position - enemy.gameObject.transform.position;
 
