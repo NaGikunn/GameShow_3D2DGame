@@ -110,7 +110,7 @@ namespace StateMachine
 
             // outパラメータ用に、Rayのヒット情報を取得するための変数を用意
             RaycastHit hit;
-            string hitTag;
+            string hTag;
 
             public override void Enter()
             {
@@ -202,10 +202,10 @@ namespace StateMachine
                     {
 
                         // Rayがhitしたオブジェクトのタグ名を取得
-                        hitTag = hit.collider.tag;
+                        hTag = hit.collider.tag;
 
                         //タステージのタグ
-                        if (hitTag == "Stage")
+                        if (hTag == "Stage")
                         {
                             if (owner.IsFly)
                             {

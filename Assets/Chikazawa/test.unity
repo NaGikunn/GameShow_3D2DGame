@@ -501,7 +501,7 @@ Prefab:
         type: 2}
       propertyPath: pursuit
       value: 
-      objectReference: {fileID: 1221913112}
+      objectReference: {fileID: 989018034}
     - target: {fileID: 114697349228816860, guid: f53c045537e2aab428ec86242a74fcc5,
         type: 2}
       propertyPath: attack
@@ -680,11 +680,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6, y: 0.36, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1221913112 stripped
+--- !u!114 &989018034 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114661165593478436, guid: af2e38fe2b01eff4f8ccf883948cf58a,
+  m_PrefabParentObject: {fileID: 114113749692754400, guid: f53c045537e2aab428ec86242a74fcc5,
     type: 2}
-  m_PrefabInternal: {fileID: 647339537}
+  m_PrefabInternal: {fileID: 897209422}
   m_Script: {fileID: 11500000, guid: 69346a7cfd820e04b9b3763d2ff43143, type: 3}
 --- !u!1 &1285918109
 GameObject:
