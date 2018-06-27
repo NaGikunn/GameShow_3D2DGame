@@ -9,7 +9,7 @@ namespace StateMachine
     /// ステートを持つオブジェクトの基底
     /// 
     /// </summary>
-    //unityのベースクラスを継承している。  T=ステートのクラス  TEnum=ステートの状態を保存するEnum
+    //unityのベースクラスを継承している。  T = ステートのクラス  TEnum = ステートを入れるEnum型
     public abstract class StatefulObjectBase<T, TEnum> : MonoBehaviour
         where T : class where TEnum : System.IConvertible
     {
