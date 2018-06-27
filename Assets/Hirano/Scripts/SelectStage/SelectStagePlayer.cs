@@ -30,6 +30,7 @@ public class SelectStagePlayer : MonoBehaviour
         controller = GetComponent<CharacterController>();
         playerPos = transform.position;
         anim = GetComponent<Animator>();
+        Load = false;
     }
 	
 	// Update is called once per frame

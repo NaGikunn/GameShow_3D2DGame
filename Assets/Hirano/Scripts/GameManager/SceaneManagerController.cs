@@ -18,7 +18,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         TIME = 0.0f;
         sceaneflg = false;
         FadeManagerController.Blackalfa = 0.0f;
-        //SelectStagePlayer.Load = false;
+        SelectStagePlayer.Load = false;
     }
 
     public void NowSceneManagement()
@@ -84,12 +84,12 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
                 {
                     AudioMnagerController.Instance.BGMFadeOut();
                 }
-            }
-            if(TIME >= 3.0f)
-            {
-                AudioMnagerController.BGM1.Pause();
-                SceneManager.LoadScene("StageTutorial_m");
-                TIME = 0.0f;
+                if (TIME >= 3.0f)
+                {
+                    AudioMnagerController.BGM1.Pause();
+                    SceneManager.LoadScene("StageTutorial_m");
+                    TIME = 0.0f;
+                }
             }
             //クリアしているときにセレクト画面に来たら白のフェード
             if (PlayerMoveController.Clear)
