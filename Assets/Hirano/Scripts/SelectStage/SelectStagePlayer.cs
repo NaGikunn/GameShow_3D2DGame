@@ -24,6 +24,8 @@ public class SelectStagePlayer : MonoBehaviour
     Animator stageanim;
     //シーンのロード管理
     public static bool Load = false;
+    //スモーク
+    public GameObject[] smokeObj;
     // Use this for initialization
     void Start ()
     {
@@ -31,6 +33,10 @@ public class SelectStagePlayer : MonoBehaviour
         playerPos = transform.position;
         anim = GetComponent<Animator>();
         Load = false;
+        if (PlayerMoveController.Clear)
+        {
+            Destroy(smokeObj[0]);
+        }
     }
 	
 	// Update is called once per frame
