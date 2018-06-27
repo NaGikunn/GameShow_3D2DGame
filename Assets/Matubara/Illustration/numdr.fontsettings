@@ -5,7 +5,7 @@ Font:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: numderText
+  m_Name: numdr
   serializedVersion: 5
   m_LineSpacing: 0.1
   m_DefaultMaterial: {fileID: 2100000, guid: 94c431e46d937534abe60848d6f6a1df, type: 2}
@@ -21,25 +21,25 @@ Font:
     index: 0
     uv:
       serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
+      x: 0.05
+      y: 0.06
+      width: 0.25
+      height: 0.25
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
-    advance: 0
+      width: 32
+      height: -32
+    advance: 32
     flipped: 0
   - serializedVersion: 2
     index: 1
     uv:
       serializedVersion: 2
       x: 0.05
-      y: 0.765
-      width: 0.25
+      y: 0.78
+      width: 0.21
       height: 0.25
     vert:
       serializedVersion: 2
@@ -53,9 +53,9 @@ Font:
     index: 2
     uv:
       serializedVersion: 2
-      x: 0.37
-      y: 0.765
-      width: 0.25
+      x: 0.33
+      y: 0.78
+      width: 0.26
       height: 0.25
     vert:
       serializedVersion: 2
@@ -70,8 +70,8 @@ Font:
     uv:
       serializedVersion: 2
       x: 0.73
-      y: 0.765
-      width: 0.25
+      y: 0.78
+      width: 0.2
       height: 0.25
     vert:
       serializedVersion: 2
@@ -87,7 +87,7 @@ Font:
       serializedVersion: 2
       x: 0.05
       y: 0.54
-      width: 0.25
+      width: 0.23
       height: 0.25
     vert:
       serializedVersion: 2
@@ -95,16 +95,16 @@ Font:
       y: 0
       width: 34
       height: -34
-    advance: 34
+    advance: 32
     flipped: 0
   - serializedVersion: 2
     index: 5
     uv:
       serializedVersion: 2
-      x: 0.37
-      y: 0.5421
-      width: 0.25
-      height: 0.25
+      x: 0.38
+      y: 0.55
+      width: 0.23
+      height: 0.24
     vert:
       serializedVersion: 2
       x: 0
@@ -117,24 +117,24 @@ Font:
     index: 6
     uv:
       serializedVersion: 2
-      x: 0.7
-      y: 0.539
+      x: 0.68
+      y: 0.555
       width: 0.25
-      height: 0.25
+      height: 0.23
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 34
-      height: -34
-    advance: 34
+      width: 32
+      height: -32
+    advance: 32
     flipped: 0
   - serializedVersion: 2
     index: 7
     uv:
       serializedVersion: 2
-      x: 0
-      y: 0.28
+      x: 0.05
+      y: 0.315
       width: 0.25
       height: 0.25
     vert:
@@ -149,33 +149,33 @@ Font:
     index: 8
     uv:
       serializedVersion: 2
-      x: 0
-      y: 0.25
-      width: 0.33
+      x: 0.38
+      y: 0.31
+      width: 0.22
       height: 0.25
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 43
+      width: 32
       height: -32
-    advance: 37
+    advance: 32
     flipped: 0
   - serializedVersion: 2
     index: 9
     uv:
       serializedVersion: 2
-      x: 0.25
-      y: 0.25
-      width: 0.33
-      height: 0.25
+      x: 0.7
+      y: 0.32
+      width: 0.22
+      height: 0.24
     vert:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 43
+      width: 32
       height: -32
-    advance: 37
+    advance: 32
     flipped: 0
   m_KerningValues: []
   m_PixelScale: 0.1
