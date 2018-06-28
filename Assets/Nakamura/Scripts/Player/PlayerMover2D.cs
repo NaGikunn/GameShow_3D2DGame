@@ -49,19 +49,21 @@ namespace Dimension.Player
 
             // 向き
             if(inputVec.x != 0) {
-                animator.SetBool("walk", true);
+                animator.SetBool("Walk", true);
                 transformCache.forward = inputVec;
-            }
-            else
+            } else
             {
-                animator.SetBool("walk", false);
+                animator.SetBool("Walk", false);
             }
 
             // ジャンプ
             if (PController.IsGround && key.Jump) {
                 rigidbodyCache.AddForce(Vector3.up * 250);
-                animator.SetTrigger("jump");
-                animator.SetBool("walk", false);
+                animator.SetTrigger("Jump");
+                animator.SetBool("Walk", false);
+            } else
+            {
+                animator.SetBool("IsGround", IsGround);
             }
 
             // 更新

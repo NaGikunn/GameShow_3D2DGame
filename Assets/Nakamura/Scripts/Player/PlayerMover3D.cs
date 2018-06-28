@@ -41,18 +41,22 @@ namespace Dimension.Player
             // ジャンプ
             if (PController.IsGround  && key.Jump) {
                 rigidbodyCache.AddForce(Vector3.up * 250);
-                animator.SetTrigger("jump");
-                animator.SetBool("walk", false);
+                animator.SetTrigger("Jump");
+                animator.SetBool("Walk", false);
+            }else
+            {
+                animator.SetBool("IsGround", IsGround);
             }
+            
 
             // 向き
             if(key.Axis != new Vector2(0, 0)) {
-                animator.SetBool("walk", true);
+                animator.SetBool("Walk", true);
                 transformCache.forward = inputVec;
             }
             else
             {
-                animator.SetBool("walk", false);
+                animator.SetBool("Walk", false);
             }
 
             // ダッシュ
