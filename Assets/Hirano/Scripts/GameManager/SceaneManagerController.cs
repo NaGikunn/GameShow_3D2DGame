@@ -33,6 +33,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             if (Input.anyKeyDown)
             {
                 sceaneflg = true;
+                AudioMnagerController.SE1.Play();
             }
 
             //初めにWhiteImageのアルファを小さくする
@@ -49,11 +50,6 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
                 {
                     FadeManagerController.Instance.BlackFadeIn();
                 }
-                //BGMを小さくする
-                //if (AudioMnagerController.BGM1.volume >= 0.0f)
-                //{
-                //    AudioMnagerController.Instance.BGMFadeOut();
-                //}
                 //三秒たったら
                 if (TIME >= 3.0f)
                 {
@@ -76,6 +72,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             if (SelectStagePlayer.Load)
             {
                 StageSelectFade();
+                AudioMnagerController.SE2.Play();
             }
             //クリアしているときにセレクト画面に来たら白のフェード
             if (PlayerMoveController.Clear)
@@ -89,7 +86,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         if (NowScene == "StageTutorial_m")
         {
             //ここが何回も呼ばれてるよ
-            AudioMnagerController.BGM2.Play();
+            //AudioMnagerController.BGM2.Play();
             //初めにBlackImageのアルファを小さくする
             if (FadeManagerController.Blackalfa >= 0.0f)
             {
