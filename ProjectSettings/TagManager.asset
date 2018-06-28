@@ -8,6 +8,10 @@ TagManager:
   - Stage
   - Gole
   - Enemy
+  - StageTutorial
+  - Stage1
+  - Stage2
+  - Stage3
   layers:
   - Default
   - TransparentFX

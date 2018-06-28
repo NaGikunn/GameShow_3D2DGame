@@ -26,6 +26,7 @@ public class SelectStagePlayer : MonoBehaviour
     public static bool Load = false;
     //スモーク
     public GameObject[] smokeObj;
+    public static string ObjectName;
     // Use this for initialization
     void Start ()
     {
@@ -94,11 +95,15 @@ public class SelectStagePlayer : MonoBehaviour
     // 衝突があったさいに呼ばれる
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (hit.gameObject.tag == "Stage")
+        if (hit.gameObject.tag == "StageTutorial")
         {
-            stageanim = hit.gameObject.GetComponent<Animator>();
-            stageanim.SetBool("fly", true);
+            ObjectName = hit.gameObject.name;
             Load = true;
+        }
+        if(hit.gameObject.tag == "Stage1")
+        {
+            Load = true;
+            ObjectName = hit.gameObject.name;
         }
     }
 
