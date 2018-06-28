@@ -7,35 +7,34 @@ namespace Dimension.Stage
 {
     public class StageController : MonoBehaviour
     {
-        //public StageData stageData;
+        public StageData stageData;
 
         [Space]
         // ステージ
-        //public MeshSetter stageMesh;
-        public MeshCollider stageMesh;
-        public MeshCollider rightSecond;
-        public MeshCollider leftSecond;
+        public MeshSetter stageMesh;
+        public MeshSetter rightSecond;
+        public MeshSetter leftSecond;
 
-        //[Space]
-        //// ギミック
-        //public StageGoal goalPre;
+        [Space]
+        // ギミック
+        public StageGoal goalPre;
 
         Mesh renderMesh;     // レンダリングされるメッシュ
         Mesh colliderMesh;   // コライダー作成用のメッシュ
 
         // 戻る位置
-        //BackLine[] backLinesRight;
-        //BackLine[] backLinesLeft;
+        BackLine[] backLinesRight;  // ステージ座標
+        BackLine[] backLinesLeft;   // ステージ座標
         // リスポーン地点
-        Vector3[] ReSpawrnList;
+        Vector3[] ReSpawrnList;     // ワールド
         //-----------------------------------------------------
         //  プロパティ
         //-----------------------------------------------------
         public Vector3 StageForward { get; private set; }   // ステージの正面方向
         public Vector3 StageRight   { get; private set; }   // ステージの右方向
-        public Vector3 StageCenter  { get; private set; }   // ステージの中心
-        public Vector3 StartPoint   { get; private set; }   // スタート地点
-        public Vector3 GoalPoint    { get; private set; }   // ゴール地点
+        public Vector3 StageCenter  { get; private set; }   // ステージの中心  ワールド
+        public Vector3 StartPoint   { get; private set; }   // スタート地点    ワールド
+        public Vector3 GoalPoint    { get; private set; }   // ゴール地点      ワールド  
         public float StageWidth     { get; private set; }   // ステージの幅
         public float StageHeight    { get; private set; }   // ステージの高さ
         public float StageDepth     { get; private set; }   // ステージの奥行き
@@ -43,27 +42,26 @@ namespace Dimension.Stage
         //=====================================================
         void Awake()
         {
-            //if (stageData == null) return;
-
-            StageForward = new Vector3(0, 0, -1);
-
+            if (stageData == null) return;
             Initialize();
         }
         //-----------------------------------------------------
         //  ステージ情報の設定
         //-----------------------------------------------------
-        //public void SetStageData(StageData data)
-        //{
-        //    stageData = data;
-        //    Initialize();
-        //}
+        public void SetStageData(StageData data)
+        {
+            stageData = data;
+            Initialize();
+        }
         //-----------------------------------------------------
         //  リスポーン地点を返す
         //-----------------------------------------------------
         public Vector3 GetReSpawrnPoint(Vector3 playerPos)
         {
+            // 移動する位置と一番短い距離
             Vector3 bestPoint = new Vector3(0, 0, 0);
             float lengthMin = 100;
+
             foreach(Vector3 point in ReSpawrnList) {
                 float length = (playerPos - point).magnitude;
                 if (length > lengthMin) continue;
@@ -75,24 +73,35 @@ namespace Dimension.Stage
         //-----------------------------------------------------
         //  2Dから3Dに変換するときの位置
         //-----------------------------------------------------
-        public Vector3 GetBackPoint(Vector3 playerPos)
+        public Vector3 GetBackPoint(Vector3 playerPos, bool isRight)
         {
             Vector3 rePoint = playerPos;
-            //// プレイヤーの位置が右かどうか
-            //bool isRight = Conversion.Vector3ToFloat(Vector3.Scale(StageCenter, StageRight)) <
-            //               Conversion.Vector3ToFloat(Vector3.Scale(playerPos, StageRight));
-            //// 使用するほうを選択
-            //BackLine[] backLines = (isRight) ? backLinesRight : backLinesLeft;
-            //Vector3 forwardAxis = new Vector3(Mathf.Abs(StageForward.x), 0, Mathf.Abs(StageForward.z));
-            //float playerDepth = Conversion.Vector3ToFloat(Vector3.Scale(forwardAxis, playerPos));
-            //// 
-            //for(int i = 0; i < backLines.Length; ++i) {
-            //    if(playerDepth < backLines[i].endDepth)
-            //    {
 
-            //    }
-            //}
+            // 使用するほうを選択
+            BackLine[] backLines = (isRight) ? backLinesRight : backLinesLeft;
+            float playerDepth = Conversion.Vector3ToFloat(Vector3.Scale(StageForward, playerPos));
 
+            for(int i = 1; i < backLines.Length; ++i) {
+                if (playerDepth > backLines[i].endDepth) continue;
+                // 指定が一つなら
+                if(backLines[i].highSide.Count == 1) {
+                    rePoint = StageRight * backLines[i].highSide[0].x + Vector3.up * rePoint.y + StageForward * playerDepth;
+                    break;
+                }
+                // 複数なら
+                int cnt = 0;
+                foreach (Vector2 highSide in backLines[i].highSide)
+                {
+                    if (rePoint.y <= highSide.y) break;
+                    ++cnt;
+                }
+                cnt = Mathf.Max(cnt - 1, 0);
+                rePoint = StageRight * backLines[i].highSide[cnt].x + Vector3.up * rePoint.y + StageForward * playerDepth;
+                break;
+            }
+            // 最奥にいるとき
+            if (rePoint == playerPos)
+                rePoint = StageRight * 0 + Vector3.up * rePoint.y + StageForward * playerDepth;
             return rePoint;
         }
         //-----------------------------------------------------
@@ -100,7 +109,7 @@ namespace Dimension.Stage
         //-----------------------------------------------------
         void Initialize()
         {
-            //ReadStageData();    // 読み込み
+            ReadStageData();    // 読み込み
             DataCalculation();  // 計算
             CreateStage();      // 生成
         }
@@ -109,63 +118,69 @@ namespace Dimension.Stage
         //-----------------------------------------------------
         void ReadStageData()
         {
-            //renderMesh = stageData.renderMesh;
-            //colliderMesh = stageData.colliderMesh;
+            renderMesh = stageData.renderMesh;
+            colliderMesh = stageData.colliderMesh;
 
-            //// 読み込み
-            //StringReader reader = new StringReader(stageData.data.text);
+            // 読み込み
+            StringReader reader = new StringReader(stageData.data.text);
 
-            //StageForward = Conversion.StringToVector3(reader.ReadLine());
-            //StartPoint   = Conversion.StringToVector3(reader.ReadLine());
-            //GoalPoint    = Conversion.StringToVector3(reader.ReadLine());
+            StageForward = Conversion.StringToVector3(reader.ReadLine());
+            StartPoint   = Conversion.StringToVector3(reader.ReadLine());
+            GoalPoint    = Conversion.StringToVector3(reader.ReadLine());
 
-            //// 2Dから3Dに変換するときに戻る位置 右
-            //backLinesRight = ReadBackLines(ref reader);
+            // 計算
+            DataCalculation();
 
-            //// 2Dから3Dに変換するときに戻る位置 左
-            //backLinesLeft = ReadBackLines(ref reader);
+            // 2Dから3Dに変換するときに戻る位置 右
+            backLinesRight = ReadBackLines(ref reader);
 
-            //// リスポーン地点
-            //int num = int.Parse(reader.ReadLine());
-            //ReSpawrnList = new Vector3[num];
-            //for (int i = 0; i < ReSpawrnList.Length; ++i) {
-            //    ReSpawrnList[i] = Conversion.StringToVector3(reader.ReadLine());
-            //}
+            // 2Dから3Dに変換するときに戻る位置 左
+            backLinesLeft = ReadBackLines(ref reader);
 
-            //reader.Close();
+            // リスポーン地点
+            int num = int.Parse(reader.ReadLine());
+            ReSpawrnList = new Vector3[num];
+            for (int i = 0; i < ReSpawrnList.Length; ++i) {
+                // 読み込んだ位置をワールド座標に
+                ReSpawrnList[i] = StageToWorld(Conversion.StringToVector3(reader.ReadLine()));
+            }
+
+            reader.Close();
         }
-
-        //BackLine[] ReadBackLines(ref StringReader sr)
-        //{
-        //    int num = int.Parse(sr.ReadLine());
-        //    BackLine[] backLines = new BackLine[num];
-        //    for (int i = 0; i < backLines.Length; ++i)
-        //    {
-        //        backLines[i] = new BackLine {
-        //            endDepth = float.Parse(sr.ReadLine())
-        //        };
-        //        backLines[i].highSide.Clear();
-        //        int highNum = int.Parse(sr.ReadLine());
-        //        for (int j = 0; j < highNum; ++j) {
-        //            backLines[i].highSide.Add(Conversion.StringToVector2(sr.ReadLine()));
-        //        }
-        //    }
-        //    return backLines;
-        //}
+        //-----------------------------------------------------
+        //  2Dから3Dへ変換するときの位置情報の読み込み
+        //-----------------------------------------------------
+        BackLine[] ReadBackLines(ref StringReader sr)
+        {
+            int num = int.Parse(sr.ReadLine());
+            BackLine[] backLines = new BackLine[num];
+            for (int i = 0; i < backLines.Length; ++i)
+            {
+                backLines[i] = new BackLine {
+                    endDepth = float.Parse(sr.ReadLine())
+                };
+                backLines[i].highSide.Clear();
+                int highNum = int.Parse(sr.ReadLine());
+                for (int j = 0; j < highNum; ++j) {
+                    backLines[i].highSide.Add(Conversion.StringToVector2(sr.ReadLine()));
+                }
+            }
+            return backLines;
+        }
         //-----------------------------------------------------
         //  読み込んだデータから計算
         //-----------------------------------------------------
         void DataCalculation()
         {
+            // ステージ右方向
             StageRight = Quaternion.Euler(new Vector3(0, 90, 0)) * StageForward;
-            colliderMesh = stageMesh.sharedMesh;
+            StageRight = new Vector3(Mathf.Round(StageRight.x), 0, Mathf.Round(StageRight.y));
 
             // ステージのサイズ
             Vector3 vecMax = new Vector3(0, 0, 0);
             Vector3 vecMin = new Vector3(0, 0, 0);
 
-            foreach (Vector3 vec in colliderMesh.vertices)
-            {
+            foreach (Vector3 vec in stageData.colliderMesh.vertices) {
                 vecMax = Vector3.Max(vec, vecMax);
                 vecMin = Vector3.Min(vec, vecMin);
             }
@@ -173,7 +188,7 @@ namespace Dimension.Stage
             // ステージの中央
             Vector3 centerVec = (vecMax - vecMin).normalized;
             float dis = (vecMax - vecMin).magnitude * 0.5f;
-            StageCenter = centerVec * dis;
+            StageCenter = vecMin + centerVec * dis;
 
             StageWidth  = vecMax.x - vecMin.x;
             StageHeight = vecMax.y - vecMin.y;
@@ -185,7 +200,7 @@ namespace Dimension.Stage
         void CreateStage()
         {
             // 三次元用
-            //stageMesh.SetMesh(renderMesh, colliderMesh);
+            stageMesh.SetMesh(renderMesh, colliderMesh);
 
             // 二次元用
             rightSecond.transform.position = StageRight  * StageWidth * 2;
@@ -193,95 +208,12 @@ namespace Dimension.Stage
             CreateSecondCollider();
 
             // ゴールの配置
-            //GameObject goalObj = Instantiate(goalPre.gameObject, GoalPoint, Quaternion.identity);
-            //goalObj.transform.parent = transform;
+            GameObject goalObj = Instantiate(goalPre.gameObject, GoalPoint, Quaternion.identity);
+            goalObj.transform.parent = transform;
         }
         //-----------------------------------------------------
         //  2次元用Collider(3D)を用意
         //-----------------------------------------------------
-        public class Plane
-        {
-            const int VERTEX_NUM = 4;   // 頂点数
-            public Vector3[] vertices;  // 頂点
-            public Vector3 normalVector;// 法線ベクトル
-
-            public Vector3 Center
-            {
-                get {
-                    return vertices[0] + (vertices[2] - vertices[0]) * 0.5f;
-                }
-            }
-
-            // コンストラクタ
-            public Plane() {
-                vertices = new Vector3[VERTEX_NUM];
-            }
-            public Plane(Vector3 one, Vector3 two, Vector3 three, Vector3 fowr) {
-                vertices = new Vector3[] { one, two, three, fowr };
-            }
-
-            public static bool operator ==(Plane p1, Plane p2) { return p1.Equals(p2); }
-            public static bool operator !=(Plane p1, Plane p2) { return !p1.Equals(p2); }
-
-            public override bool Equals(object obj) {
-                if (!(obj is Plane)) return false;
-
-                Plane other = (Plane)obj;
-                for (int i = 0; i < VERTEX_NUM; ++i)
-                    if (vertices[i] != other.vertices[i]) return false;
-                
-                return true;
-            }
-            public override int GetHashCode() { return base.GetHashCode(); }
-
-            // 法線ベクトルを計算
-            public Vector3 GetNormalVector() {
-                normalVector = Vector3.Cross(vertices[1] - vertices[0], vertices[2] - vertices[0]);
-                return normalVector;
-            }
-            // 引数の軸の値が同一かどうか
-            public bool CheckAxisSame(Vector3 axis) {
-                return Vector3.Scale(axis, vertices[0]) == Vector3.Scale(axis, vertices[1]) &&
-                       Vector3.Scale(axis, vertices[1]) == Vector3.Scale(axis, vertices[2]) &&
-                       Vector3.Scale(axis, vertices[2]) == Vector3.Scale(axis, vertices[3]);
-            }
-        }
-        public class Cube
-        {
-            const int VERTEX_NUM = 8;   // 頂点数
-            public Vector3[] vertices;  // 頂点
-            public int[]     triangles; // 三角形
-
-            public Cube(Plane plane)
-            {
-                // 頂点
-                vertices = new Vector3[] {
-                    plane.vertices[0] + plane.normalVector * 0.5f,
-                    plane.vertices[1] + plane.normalVector * 0.5f,
-                    plane.vertices[2] + plane.normalVector * 0.5f,
-                    plane.vertices[3] + plane.normalVector * 0.5f,
-                    plane.vertices[1] - plane.normalVector * 0.5f,
-                    plane.vertices[0] - plane.normalVector * 0.5f,
-                    plane.vertices[3] - plane.normalVector * 0.5f,
-                    plane.vertices[2] - plane.normalVector * 0.5f,
-                };
-                // 三角形
-                triangles = new int[] {
-                    0, 1, 2, 0, 2, 3,   // 正面
-                    4, 5, 6, 4, 6, 7,   // 背後
-                    3, 2, 7, 3, 7, 6,   // 上
-                    1, 0, 5, 1, 5, 4,   // 下
-                    5, 0, 3, 5, 3, 6,   // 右
-                    1, 4, 7, 1, 7, 2    // 左
-                };
-            }
-
-            public void CreateTriangle(int start) {
-                for(int i = 0; i < triangles.Length; i++) {
-                    triangles[i] += start;
-                }
-            }
-        }
         void CreateSecondCollider()
         {
             List<Plane>     planes    = new List<Plane>();      // 平面のリスト
@@ -316,8 +248,8 @@ namespace Dimension.Stage
             secondMesh.RecalculateBounds();
             secondMesh.RecalculateNormals();
 
-            rightSecond.sharedMesh = secondMesh;
-            leftSecond.sharedMesh = secondMesh;
+            rightSecond.SetMesh(secondMesh, secondMesh);
+            leftSecond.SetMesh(secondMesh, secondMesh);
 
             return;
         }
@@ -364,6 +296,20 @@ namespace Dimension.Stage
                 if (value == item) return false;
             }
             return true;
+        }
+        //-----------------------------------------------------
+        // ステージの座標をワールド座標に
+        //-----------------------------------------------------
+        Vector3 StageToWorld(Vector3 stage)
+        {
+            return StageRight * stage.x + Vector3.up * stage.y + StageForward * stage.z;
+        }
+        //-----------------------------------------------------
+        // ワールド座標をステージの座標に
+        //-----------------------------------------------------
+        Vector3 WorldToStage(Vector3 world)
+        {
+            return StageRight * world.x + Vector3.up * world.y + StageForward * world.z;
         }
     }
 }

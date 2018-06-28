@@ -4,25 +4,24 @@ using UnityEngine;
 
 namespace Dimension.Player
 {
-    public class PlayerMoverNull : PlayerMoveController
+    public class PlayerMoverNull : PlayerMover
     {
         //-----------------------------------------------------
         //  初期化
         //-----------------------------------------------------
-        public override void PositionInitialization()
+        public override void Initialize()
         {
-            if (rig == null) rig = GetComponent<Rigidbody>();
-            rig.useGravity = false;
-            rig.velocity = new Vector3(0, 0, 0);
+            rigidbodyCache.useGravity = false;
+            rigidbodyCache.velocity = new Vector3(0, 0, 0);
         }
         //-----------------------------------------------------
         //  行動
         //-----------------------------------------------------
-        public override void Movement() { return; }
-
-        void OnDestroy()
-        {
-            rig.useGravity = true;
-        }
+        public override void Move(KeyState key) { return; }
+        //-----------------------------------------------------
+        //  復帰
+        //-----------------------------------------------------
+        public override void ReSpawn(Vector3 position) { return; }
+        
     }
 }
