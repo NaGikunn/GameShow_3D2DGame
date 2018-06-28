@@ -14,7 +14,7 @@ namespace Dimension.Player
 
     public class TestPlayer : MonoBehaviour
     {
-        Transform _transformCache;
+        Transform transformCache;
         Rigidbody rigidbodyCache;
 
         PlayerMover pMover;
@@ -23,37 +23,30 @@ namespace Dimension.Player
         //  プロパティ
         //-----------------------------------------------------
         // Transform
-        public Transform TransformCache {
-            get {
-                if (_transformCache == null) _transformCache = transform;
-                return _transformCache;
-            }
-        }
         public Vector3 Position {
-            get { return TransformCache.position; }
-            set { TransformCache.position = value; }
+            get { return transformCache.position; }
+            set { transformCache.position = value; }
         }
         public Vector3 LocalPosition {
-            get { return TransformCache.localPosition; }
-            set { TransformCache.localPosition = value; }
+            get { return transformCache.localPosition; }
+            set { transformCache.localPosition = value; }
         }
-        public Vector3 Center { get { return TransformCache.position + Vector3.up * 0.5f; } }
+        public Vector3 Center { get { return transformCache.position + Vector3.up * 0.5f; } }
         public Vector3 Forward {
-            get { return TransformCache.forward; }
-            set { TransformCache.forward = value; }
+            get { return transformCache.forward; }
+            set { transformCache.forward = value; }
         }
         // ステータス
         public bool IsStop { get; set; }
         public bool IsGround { get { return Mathf.Abs(rigidbodyCache.velocity.y) <= 0.01f; } }
-        public bool IsFall { get { return TransformCache.localPosition.y + 2.0f < HeightMin; } }    // 落下判定
+        public bool IsFall { get { return transformCache.localPosition.y + 2.0f < HeightMin; } }    // 落下判定
         public bool IsRight {
             get
             {   // ステージ中央より右にいるか
                 Vector3 playerVec = LocalPosition - StageCenter;
                 float side = StageForward.z * playerVec.x - StageForward.x * playerVec.z;
                 return side >= 0;
-            }
-        }   
+            } }   
 
         //
         public GameController GController { get; private set; }
@@ -72,6 +65,7 @@ namespace Dimension.Player
         //=====================================================
         void Awake()
         {
+            transformCache = transform;
             rigidbodyCache = GetComponent<Rigidbody>();
             IsStop = false;
             SaveAccel = 0;
@@ -82,7 +76,7 @@ namespace Dimension.Player
             if (IsStop) return;
             pMover.Move(InputKey());
 
-            if (IsGround) SpawnPosition = LocalPosition;
+            if (IsGround) SpawnPosition = transformCache.localPosition;
             // 落下判定
             if (IsFall) pMover.ReSpawn(SpawnPosition);
         }
