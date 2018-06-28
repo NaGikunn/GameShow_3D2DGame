@@ -34,9 +34,10 @@ public class SelectStagePlayer : MonoBehaviour
         playerPos = transform.position;
         anim = GetComponent<Animator>();
         Load = false;
-        if (PlayerMoveController.Clear)
+        int Destroypos = PlayerMoveController.Clear;
+        if (PlayerMoveController.Clear <=1)
         {
-            Destroy(smokeObj[0]);
+            Destroy(smokeObj[Destroypos-1]);
         }
     }
 	
@@ -101,6 +102,21 @@ public class SelectStagePlayer : MonoBehaviour
             Load = true;
         }
         if(hit.gameObject.tag == "Stage1")
+        {
+            Load = true;
+            ObjectName = hit.gameObject.name;
+        }
+        if (hit.gameObject.tag == "Stage2")
+        {
+            Load = true;
+            ObjectName = hit.gameObject.name;
+        }
+        if (hit.gameObject.tag == "Stage3")
+        {
+            Load = true;
+            ObjectName = hit.gameObject.name;
+        }
+        if (hit.gameObject.tag == "Stage4")
         {
             Load = true;
             ObjectName = hit.gameObject.name;

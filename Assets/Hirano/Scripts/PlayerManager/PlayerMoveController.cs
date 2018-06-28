@@ -12,7 +12,7 @@ public abstract class PlayerMoveController : MonoBehaviour
     protected Rigidbody rig;
     protected float flap = 225.0f;
     protected bool Jump = false;
-    public static bool Clear = false;
+    public static int Clear = 0;
     protected AudioSource SEAudio1;
     protected AudioSource SEAudio2;
     void Awake()
@@ -24,7 +24,7 @@ public abstract class PlayerMoveController : MonoBehaviour
         SEAudio1 = audiosorce[0];
         SEAudio2 = audiosorce[1];
         Manager = GetComponent<PlayerManagerController>();
-        Clear = false;
+        Clear = 0;
         PositionInitialization();
     }
 
@@ -44,7 +44,7 @@ public abstract class PlayerMoveController : MonoBehaviour
     {
         if (other.gameObject.tag == ("Gole"))
         {
-            Clear = true;
+            Clear += 1;
             Manager.ClearLabel.SetActive(true);
             Invoke("StageSlect", 2.0f);
         }

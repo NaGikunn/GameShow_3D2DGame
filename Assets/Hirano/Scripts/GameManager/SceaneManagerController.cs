@@ -75,7 +75,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
                 AudioMnagerController.SE2.Play();
             }
             //クリアしているときにセレクト画面に来たら白のフェード
-            if (PlayerMoveController.Clear)
+            if (PlayerMoveController.Clear >= 1)
             {
                 FadeManagerController.Blackalfa = 0.0f;
                 FadeManagerController.Instance.WhiteFadeOut();
@@ -94,7 +94,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             }
 
             //clear時
-            if (PlayerMoveController.Clear)
+            if (PlayerMoveController.Clear >= 1)
             {
                 if (FadeManagerController.Whitealfa <= 1.0f)
                 {
@@ -125,6 +125,18 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             if(SelectStagePlayer.ObjectName == "Stage1")
             {
                 SceneManager.LoadScene("Stage1");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage2")
+            {
+                SceneManager.LoadScene("Stage2");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage3")
+            {
+                SceneManager.LoadScene("Stage3");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage4")
+            {
+                SceneManager.LoadScene("Stage4");
             }
             TIME = 0.0f;
         }
