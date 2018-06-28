@@ -282,12 +282,13 @@ MonoBehaviour:
   - {fileID: 4740508200188168}
   StayPos: []
   speed: 4
-  WalkStopTime: 0
+  WalkStopTime: 2
   TargetLostTime: 0
-  attackInterval: 0
+  attackInterval: 3
   pursuit: {fileID: 114661165593478436}
   attack: {fileID: 114414665795332582}
   margin: 4
+  AwakeFlg: 0
 --- !u!114 &114414665795332582
 MonoBehaviour:
   m_ObjectHideFlags: 1

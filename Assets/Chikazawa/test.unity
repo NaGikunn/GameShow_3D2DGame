@@ -301,6 +301,11 @@ Prefab:
       propertyPath: m_Radius
       value: 3.31
       objectReference: {fileID: 0}
+    - target: {fileID: 114248823738311046, guid: af2e38fe2b01eff4f8ccf883948cf58a,
+        type: 2}
+      propertyPath: attackInterval
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: af2e38fe2b01eff4f8ccf883948cf58a, type: 2}
   m_IsPrefabParent: 0

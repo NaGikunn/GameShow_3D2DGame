@@ -21,10 +21,10 @@ namespace StateMachine
 
         public bool IsFly;
 
-        [SerializeField]                   //巡回地点
-        Transform[] StayPoint;             //設定座標が1の時はその場で待機
-        [SerializeField]
-        Vector3[] StayPos;
+        Vector3 StayPosL;                  //巡回地点
+        Vector3 StayPosR;
+        [SerializeField] 
+        float MoveLength;                  //巡回範囲
 
         [SerializeField]
         float speed = 4f;                  //移動
@@ -62,6 +62,12 @@ namespace StateMachine
             //初期位置を保存してリスポーン出来るようにする
             StartPos = transform.position;
 
+            //巡回範囲の設定
+            StayPosL = StartPos;
+            StayPosR = StartPos;
+            StayPosL.x = StartPos.x - (MoveLength / 2);
+            StayPosR.x = StartPos.x + (MoveLength / 2);
+
             // ステートマシンの初期設定
             stateList.Add(new StateWalk(this));
             stateList.Add(new StatePursuit(this));
@@ -82,7 +88,13 @@ namespace StateMachine
                 Debug.Log("ATTACK_HIT!!");
             }
         }
+        void Updare()
+        {
+            if (AwakeFlg)
+            {
 
+            }
+        }
 
         /// <summary>
         /// 待機or徘徊
@@ -94,8 +106,11 @@ namespace StateMachine
             //baseは何もしない　"owner"でEnemyで使用している変数を使用可能にする
             public StateWalk(Enemy owner) : base(owner) { }
 
-            //巡回地点の変更フラグ
-            int PointCount = 0;
+            //巡回地点の変更フラグ***　false = 左　true = 右
+            bool PointChanger = false;
+            //現在位置の検知
+            float CurrentPos;
+            //待機時間
             float StayTime = 0;
 
             //リスポーン感知
@@ -119,22 +134,29 @@ namespace StateMachine
                 owner.moveVec = 1;      //向きを初期化
                 StayTime = 0;           //待機時間を初期化
                 Count_MoveCancel = 0;   //リスポーン待機時間を初期化
-                                        //初期呼び出し時、最初の巡回地点を設定する
+                                        
+                //初期呼び出し時、最初の巡回地点を設定する
                 if (targetPoint == Vector3.zero)
                 {
-                    //最後の地点を入力して最初の地点を取得出来るようにする
-                    PointCount = owner.StayPoint.Length;
-                    //地点を取得して目標地点に設定
-                    Change_Point();
+                    //ランダムに選択して目標地点に設定
+                    float s = Random.value;
+                    if (s <= 0.5)
+                    {
+                        targetPoint = owner.StayPosR;
+                    }
+                    else
+                    {
+                        targetPoint = owner.StayPosL;
+                    }
                 }
                 //else if (owner.P_Targetlostflg && !owner.IsFly)//プレーヤーを見失ったらその地点に行く*歩行型のみ
                 //{
                 //    targetPoint = owner.player.gameObject.transform.position;
                 //}
-                //else
+                else
                 {
-                    ////地点を取得して目標地点に設定
-                    Change_Point();
+                    //地点を取得して目標地点に設定
+                    Change_Point(owner.transform.position.x);
                 }
                 if (!owner.IsFly)
                 {
@@ -144,29 +166,30 @@ namespace StateMachine
 
             public override void Execute()//Update処理
             {
-                if(Input.GetKey(KeyCode.F1))
+                if(Input.GetKeyDown(KeyCode.F1))
                 {
                     owner.AwakeFlg = !owner.AwakeFlg;
                 }
                 if (owner.AwakeFlg)
                 {
-
-                ///<summary>
-                ///目標地点の関係で移動ができなくなったとき
-                ///初期位置にワープして対応する
-                ///</summary>
-                ////徘徊状態か、警戒状態の時のみ確認
-                //if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
-                //{
-                //    Count_MoveCancel += Time.deltaTime;
-                //}
-                ////5秒毎に稼働状態を確認
-                //if (Count_MoveCancel >= 5.0f)
-                //{
-                //    ReSpawn();
-                //}
-                //間に障害物がない状態で追跡範囲に入ったら、追跡ステートに遷移
-                if (owner.pursuit.PursuitFlg && owner.pursuit.hitTag == "Player" && !owner.attack.AttackStopflg)
+                    ///<summary>
+                    ///目標地点の関係で移動ができなくなったとき
+                    ///初期位置にワープして対応する
+                    ///</summary>
+                    ///<summary>
+                    ///徘徊状態か、警戒状態の時のみ確認
+                    ///*if (owner.StayPoint.Length >= 2 || owner.P_Targetlostflg)
+                    ///{
+                    ///    Count_MoveCancel += Time.deltaTime;
+                    ///}
+                    ///5秒毎に稼働状態を確認
+                    ///if (Count_MoveCancel >= 5.0f)
+                    ///{
+                    ///    ReSpawn();
+                    ///}*/
+                    ///</summary>
+                    //間に障害物がない状態で追跡範囲に入ったら、追跡ステートに遷移
+                    if (owner.pursuit.PursuitFlg && owner.pursuit.hitTag == "Player" && !owner.attack.AttackStopflg)
                 {
                     owner.ChangeState(status.Pursuit);
                 }
@@ -194,7 +217,7 @@ namespace StateMachine
                     //目標地点を変更してカウントリセット
                     else
                     {
-                        Change_Point();
+                        Change_Point(owner.transform.position.x);
                         StayTime = 0;
                     }
                 }
@@ -284,17 +307,24 @@ namespace StateMachine
             }
 
             //次の目標地点を設定する。
-            void Change_Point()
+            void Change_Point(float CurrentPosX)
             {
                 //次の地点を取得
-                PointCount++;
+                PointChanger = !PointChanger;
+                if (PointChanger)
+                targetPoint = owner.StayPosR;
+                if (!PointChanger)
+                targetPoint = owner.StayPosL;
+
+                
+
                 //一巡したら最初の地点を取得
-                if (owner.StayPoint.Length <= PointCount)
-                {
-                    PointCount = 0;
-                }
+                //if (owner.StayPoint.Length <= PointCount)
+                //{
+                //    PointCount = 0;
+                //}
                 //目標地点を設定する
-                targetPoint = owner.StayPoint[PointCount].position;
+                //targetPoint = owner.StayPoint[PointCount].position;
             }
 
             void ReSpawn()
@@ -309,7 +339,17 @@ namespace StateMachine
                     owner.transform.rotation = Quaternion.Euler(0, 0, 0);
                     owner.transform.position = owner.StartPos;
                     owner.P_Targetlostflg = false;
-                    Change_Point();
+                    //ランダムに選択して目標地点に設定
+                    float s = Random.value;
+                    if (s <= 0.5)
+                    {
+                        targetPoint = owner.StayPosR;
+                    }
+                    else
+                    {
+                        targetPoint = owner.StayPosL;
+                    }
+
                     Count_MoveCancel = 0;
                 }
 
