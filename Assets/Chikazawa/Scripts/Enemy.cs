@@ -17,6 +17,7 @@ namespace StateMachine
     {
         //個体で違う数値・参照が必要な変数はここに書く
         public Transform player;
+        Dimension.GameController GCon;
         Vector3 StartPos;                  //初期位置
 
         public bool IsFly;
@@ -58,7 +59,7 @@ namespace StateMachine
         {
             // 始めにプレイヤーの位置を取得できるようにする
             player = GameObject.FindWithTag("Player").transform;
-   
+            
             //初期位置を保存してリスポーン出来るようにする
             StartPos = transform.position;
 
@@ -90,9 +91,9 @@ namespace StateMachine
         }
         void Updare()
         {
-            if (AwakeFlg)
+            if (GCon.GameMode != GCon.GameMode)
             {
-
+                AwakeFlg = !AwakeFlg;
             }
         }
 
