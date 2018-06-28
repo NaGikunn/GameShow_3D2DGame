@@ -16,5 +16,5 @@ public class FadeTest : MonoBehaviour
     {
         //SceaneManagerControllerを持ってくる
         SceaneManagerController.Instance.NowSceneManagement();
-	}
+    }
 }

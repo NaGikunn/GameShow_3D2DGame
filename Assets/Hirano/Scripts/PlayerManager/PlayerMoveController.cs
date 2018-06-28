@@ -10,7 +10,7 @@ public abstract class PlayerMoveController : MonoBehaviour
     protected Vector3 playerposition;
     protected Animator anim;
     protected Rigidbody rig;
-    protected float flap = 250.0f;
+    protected float flap = 225.0f;
     protected bool Jump = false;
     public static bool Clear = false;
     protected AudioSource SEAudio1;

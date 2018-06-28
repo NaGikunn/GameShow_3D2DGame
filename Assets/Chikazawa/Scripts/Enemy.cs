@@ -122,7 +122,7 @@ namespace StateMachine
             //巡回地点＠Enemy owner.変数名 で呼び出し
             //public Transform[] StayPoint;
             //目標地点
-            Vector3 targetPoint;
+            Vector3 targetPoint = new Vector3();
             Vector3 diff;
 
             // outパラメータ用に、Rayのヒット情報を取得するための変数を用意
