@@ -46,6 +46,13 @@ namespace Dimension.Player
         public bool IsStop { get; set; }
         public bool IsGround { get { return Mathf.Abs(rigidbodyCache.velocity.y) <= 0.01f; } }
         public bool IsFall { get { return TransformCache.localPosition.y + 2.0f < HeightMin; } }    // 落下判定
+        public bool IsForward {
+            get
+            {   // ステージ正面方向を向いているか
+                float side = StageRight.z * Forward.x - StageRight.x * Forward.z;
+                return side < 0;
+            }
+        }
         public bool IsRight {
             get
             {   // ステージ中央より右にいるか
@@ -74,6 +81,8 @@ namespace Dimension.Player
             rigidbodyCache = GetComponent<Rigidbody>();
             IsStop = false;
             SaveAccel = 0;
+
+            pMover = GetComponent<PlayerMover>();
             if (pMover == null) ChangeMover<PlayerMover3D>();
         }
         void Update()
@@ -83,7 +92,10 @@ namespace Dimension.Player
 
             if (IsGround) SpawnPosition = LocalPosition;
             // 落下判定
-            if (IsFall) pMover.ReSpawn(SpawnPosition);
+            if (IsFall)
+            {
+                pMover.ReSpawn(SpawnPosition);
+            }
         }
         //-----------------------------------------------------
         //  ゲームコントローラー受け取り

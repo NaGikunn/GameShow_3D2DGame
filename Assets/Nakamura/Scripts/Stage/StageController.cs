@@ -70,10 +70,11 @@ namespace Dimension.Stage
         public Vector3 GetBackPoint(Vector3 playerPos, bool isRight)
         {
             Vector3 rePoint = playerPos;
+            rePoint.y = Mathf.Round(rePoint.y);
 
             // 使用するほうを選択
             BackLine[] backLines = (isRight) ? backLinesRight : backLinesLeft;
-            float playerDepth = Conversion.Vector3ToFloat(Vector3.Scale(StageForward, playerPos));
+            float playerDepth = Conversion.Vector3AxisFloat(StageForward, playerPos);
 
             for(int i = 1; i < backLines.Length; ++i) {
                 if (playerDepth > backLines[i].endDepth) continue;
@@ -86,7 +87,7 @@ namespace Dimension.Stage
                 int cnt = 0;
                 foreach (Vector2 highSide in backLines[i].highSide)
                 {
-                    if (rePoint.y <= highSide.y) break;
+                    if (rePoint.y < highSide.y) break;
                     ++cnt;
                 }
                 cnt = Mathf.Max(cnt - 1, 0);
@@ -200,21 +201,47 @@ namespace Dimension.Stage
             BackLine[] backLines = new BackLine[(int)StageDepth - 1];
             Vector3 basePoint = StageCenter - StageForward * (StageDepth / 2);
             Vector3 AxisForward = new Vector3(Mathf.Abs(StageForward.x), 0, Mathf.Abs(StageForward.z)); // 正面方向の軸
-            Vector3 AxisRight   = new Vector3(Mathf.Abs(StageForward.x), 0, Mathf.Abs(StageForward.z)); // 右方向の軸
+            Vector3 AxisRight   = new Vector3(Mathf.Abs(StageRight.x), 0, Mathf.Abs(StageRight.z)); // 右方向の軸
             for(int i = 0; i < backLines.Length; ++i) {
+                backLines[i] = new BackLine();
+                backLines[i].highSide.Clear();
                 foreach (Plane plane in topPlanes) {
                     // 正面方向への距離
                     Vector3 center = plane.Center - Vector3.Scale(StageForward, basePoint);
-                    float depth = Conversion.Vector3ToFloat(Vector3.Scale(AxisForward, center));
+                    float depth = Conversion.Vector3AxisFloat(AxisForward, center);
                     if (depth >= i + 1) continue;
-
-
+                    Vector2 highSide = new Vector2(
+                        Conversion.Vector3AxisFloat(AxisRight, plane.Center),
+                        plane.Center.y
+                        );
+                    // 同じ高さの値がないとき追加
+                    if(CheckNotHeightSum(backLines[i].highSide, highSide)) backLines[i].highSide.Add(highSide);
                  }
             }
 
-            Debug.Log(StageForward);
+            
+            // 右
+            //backLinesRight = new BackLine[backLines.Length];
+            //for(int i = 0; i < backLinesRight.Length; ++i)
+            //{
+            //    backLinesRight[i] = new BackLine();
+            //    backLinesRight[i].highSide.Clear();
+            //    List<Vector2> sides = new List<Vector2>();
+            //    foreach(Vector2 highSide in backLines[i].highSide)
+            //    {
+            //        if (sides.Count == 0) { sides.Add(highSide); continue; }
+                    
+            //        foreach(Vector2 side in sides)
+            //        {
+
+            //        }
+            //    }
+            //}
+
+            // 左
             
         }
+        
         //-----------------------------------------------------
         //  ステージ生成
         //-----------------------------------------------------
@@ -335,6 +362,17 @@ namespace Dimension.Stage
             foreach (var item in list)
             {
                 if (value == item) return false;
+            }
+            return true;
+        }
+        //-----------------------------------------------------
+        //  List内に同じ高さの値がない時、true
+        //-----------------------------------------------------
+        bool CheckNotHeightSum(List<Vector2> list, Vector2 point)
+        {
+            foreach(var item in list)
+            {
+                if (point.y == item.y) return false;
             }
             return true;
         }

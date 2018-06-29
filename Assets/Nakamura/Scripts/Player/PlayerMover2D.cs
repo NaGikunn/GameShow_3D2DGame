@@ -46,6 +46,8 @@ namespace Dimension.Player
                 moveAccel = Mathf.Min(moveAccel + 3 * Time.deltaTime, ACCEL_MAX);
             else if (IsGround)
                 moveAccel = Mathf.Max(moveAccel - 3 * Time.deltaTime, 0);
+                
+                
 
             // 向き
             if(inputVec.x != 0) {

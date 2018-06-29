@@ -9,6 +9,8 @@ namespace Dimension.Camera2D3D
         const float DEFALUT_LENGTH = 5.0f;      // ターゲットの距離
 
         Vector3 nextPos;    // 移動先
+        Vector3 beforePos;  // 前回の位置
+        float lerpTime;
         //-----------------------------------------------------
         //  プロパティ
         //-----------------------------------------------------
@@ -22,7 +24,9 @@ namespace Dimension.Camera2D3D
             MyCamera.orthographic = false;
 
             StageCenter = CController.SController.StageCenter;
-            StageWidth = CController.SController.StageWidth;
+            StageWidth  = CController.SController.StageWidth;
+            beforePos   = transformCache.localPosition;
+            lerpTime = 0;
         }
         //-------------------------------------------------
         //  行動
@@ -49,6 +53,8 @@ namespace Dimension.Camera2D3D
         //-----------------------------------------------------
         void NextMovePosition()
         {
+            
+
             nextPos = GetNextMovePos(Target.LocalPosition, StageForward, StageRight, StageCenter, StageWidth);
         }
         //-----------------------------------------------------
@@ -82,32 +88,6 @@ namespace Dimension.Camera2D3D
             // 向く方向
             Vector3 lookVec = (Target.LocalPosition + Vector3.up * LOOK_HEIHGT) - transformCache.localPosition;
             transformCache.localRotation = Quaternion.LookRotation(lookVec);
-        }
-    }
-
-    public class Timer
-    {
-        float _time;
-        float _max;
-
-        // コンストラクタ
-        public Timer(float max = 1) {
-            _time = 0;
-            _max = max;
-        }
-        public float Time
-        {
-            get { return _time; }
-        }
-        // カウント
-        public void Counter(float time)
-        {
-            _time = Mathf.Min(_time + time, _max);
-        }
-        // クリア
-        public void Clear()
-        {
-            _time = 0;
         }
     }
 }

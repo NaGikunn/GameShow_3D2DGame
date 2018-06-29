@@ -49,6 +49,7 @@ namespace Dimension.Camera2D3D
         void Start()
         {
             IsStop = false;
+            cWork = GetComponent<CameraWork>();
             if (cWork == null) ChangeWork<CameraWork3D>();
         }
         void LateUpdate()
@@ -84,7 +85,7 @@ namespace Dimension.Camera2D3D
                 SController.StageCenter.z - SController.StageDepth * 0.5f - 1,
                 SController.StageCenter.y - SController.StageHeight * 0.5f - 1,
                 Mathf.Max(SController.StageDepth + 2, RANGE_WIDTH_MIN),
-                Mathf.Max(SController.StageHeight + 2, RANGE_HEIGHT_MIN)
+                Mathf.Max(SController.StageHeight + 5, RANGE_HEIGHT_MIN)
                 );
         }
         //-----------------------------------------------------

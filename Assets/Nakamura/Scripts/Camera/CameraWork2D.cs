@@ -23,7 +23,6 @@ namespace Dimension.Camera2D3D
             ViewWidth = Mathf.Round(Mathf.Abs(rightUp.z - leftDown.z));
             ViewHeight = rightUp.y - leftDown.y;
 
-
             // 向き
             transformCache.forward = (Target.IsRight) ? -StageRight : StageRight;
         }

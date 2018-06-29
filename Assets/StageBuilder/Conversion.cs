@@ -44,4 +44,16 @@ public static class Conversion
     public static float Vector3ToFloat(Vector3 vec) {
         return vec.x + vec.y + vec.z;
     }
+    public static float Vector3AxisFloat(Vector3 axis, Vector3 vec) {
+        return Vector3ToFloat(Vector3.Scale(axis, vec));
+    }
+    //-----------------------------------------------------
+    //  Vector2を変換
+    //-----------------------------------------------------
+    public static float Vector2ToFloat(Vector2 vec) {
+        return vec.x + vec.y;
+    }
+    public static float Vector2AxisFloat(Vector2 axis, Vector2 vec) {
+        return Vector2ToFloat(Vector2.Scale(axis, vec));
+    }
 }
