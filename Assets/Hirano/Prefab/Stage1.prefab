@@ -20370,6 +20370,16 @@ MonoBehaviour:
   TileWidth: 16
   TileHeight: 16
   TilePadding: 0.05
+  playerObj: {fileID: 0}
+  goalObj: {fileID: 0}
+  respawnPoints: []
+  backLinesRight: []
+  backLinesLeft: []
+  isSetStart: 0
+  isSetGoal: 0
+  isExecution: 0
+  stageName: 
+  stageData: {fileID: 11400000, guid: 2b9c963de1732684abcdc192d539d1b2, type: 2}
 --- !u!132 &132173852200590706
 GUIText:
   m_ObjectHideFlags: 1
