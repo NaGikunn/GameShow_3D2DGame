@@ -7,6 +7,7 @@ namespace Dimension.Camera2D3D
     public class CameraWorkSelect : CameraWork
     {
         const float PLAYER_DISTANCE = 5.0f;
+        const float HEIGHT_DISTANCE = 4.0f;
 
         Vector3 _cameraForward;
 
@@ -26,7 +27,7 @@ namespace Dimension.Camera2D3D
         {
             transformCache.localPosition = Target.LocalPosition -
                 CameraForward * PLAYER_DISTANCE +
-                Vector3.up * PLAYER_DISTANCE;
+                Vector3.up    * HEIGHT_DISTANCE;
         }
         //-----------------------------------------------------
         //  移動制限

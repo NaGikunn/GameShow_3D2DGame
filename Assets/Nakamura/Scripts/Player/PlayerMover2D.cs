@@ -12,7 +12,6 @@ namespace Dimension.Player
         Vector3 RightAxis { get { return new Vector3(Mathf.Abs(StageRight.x), 0, Mathf.Abs(StageRight.z)); } }
         Vector3 StageRight { get { return PController.SController.StageRight; } }
         float StageWidth { get { return PController.SController.StageWidth; } }
-        bool IsGround { get { return PController.IsGround; } }
         bool IsRight { get { return PController.IsRight; } }
         //-----------------------------------------------------
         //  初期化

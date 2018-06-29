@@ -21,6 +21,8 @@ namespace Dimension
         public TestPlayer pController;
         public StageController sController;
 
+        public GameObject clearLabel;
+
         //-----------------------------------------------------
         //  プロパティ
         //-----------------------------------------------------
@@ -28,6 +30,9 @@ namespace Dimension
         //=====================================================
         void Awake()
         {
+            if (GameManager.instance.NextStage != null)
+                stageData = GameManager.instance.NextStage;
+
             sController.SetStageData(stageData);
             pController.SetGameController(this);
             cController.SetGameController(this);
@@ -83,7 +88,12 @@ namespace Dimension
         //-----------------------------------------------------
         public void StageClear()
         {
-
+            clearLabel.SetActive(true);
+            Invoke("TransitionSelect", 3.0f);
+        }
+        void TransitionSelect()
+        {
+            FadeManagerController.Instance.FadeScene(FadeManagerController.Scene.StageSelect);
         }
     }
 }

@@ -11,17 +11,6 @@ public class CameraControl : MonoBehaviour
     float DistanceToPlayer = 2.0f;
     float SlideDistans = 0.0f;
     float Heght = 1.2f;
-	// Use this for initialization
-	void Start ()
-    {
-
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void MoveCamera()
     {
