@@ -690,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageData: {fileID: 11400000, guid: 2b9c963de1732684abcdc192d539d1b2, type: 2}
   cController: {fileID: 1841637145}
-  pController: {fileID: 0}
+  pController: {fileID: 1408667386}
   sController: {fileID: 2060278085}
 --- !u!4 &1464613116
 Transform:
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a97814a901cacc4eb9b319ba1436b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageData: {fileID: 0}
+  stageData: {fileID: 11400000, guid: 2b9c963de1732684abcdc192d539d1b2, type: 2}
   stageMesh: {fileID: 2051827402}
   rightSecond: {fileID: 757236444}
   leftSecond: {fileID: 1181328}
