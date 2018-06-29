@@ -17,6 +17,7 @@ namespace Dimension.Player
         protected TestPlayer PController { get; private set; }
         protected Mode GameMode { get { return PController.GController.GameMode; } }
         protected Vector3 StageForward { get { return PController.StageForward; } }
+        protected bool IsForward { get { return PController.IsForward; } }
         //=====================================================
         void Awake()
         {

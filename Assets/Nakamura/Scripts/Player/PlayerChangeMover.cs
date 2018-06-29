@@ -41,13 +41,13 @@ namespace Dimension.Player
             Quaternion PlayerRotation = transform.rotation;
             step = speed * Time.deltaTime;
             //ステージの進行方向に回転
-            if(PlayerRotation.y <= -90.0f || PlayerRotation.y >= 90.0f)
+            if(IsForward)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y - 180.0f, 0), step);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y, 0), step);
             }
             else
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y, 0), step);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y - 180.0f, 0), step);
             }
         }
         //-----------------------------------------------------
