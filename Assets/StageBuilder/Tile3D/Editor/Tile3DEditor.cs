@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Collections;
 using UnityEditor;
@@ -78,7 +79,7 @@ public class Tile3DEditor : Editor
     // active selections
     private SingleSelection hover = null;
     private MultiSelection selected = null;
-    private Tile3D.Face brush = new Tile3D.Face() { Hidden = true };
+    private Face brush = new Face() { Hidden = true };
     // 選択状況のデータ
     private Event e;    // 処理中のcurrentイベント
     private bool invokeRepaint = false; // 塗り替えるかどうか
@@ -528,7 +529,7 @@ public class Tile3DEditor : Editor
     //=========================================================================
     #endregion
 
-    private bool SetBlockFace(Tile3D.Block block, Vector3 normal, Tile3D.Face brush)
+    private bool SetBlockFace(Block block, Vector3 normal, Face brush)
     {
         Undo.RecordObject(target, "SetBlockFaces");
 
@@ -555,7 +556,7 @@ public class Tile3DEditor : Editor
         return false;
     }
 
-    private Tile3D.Face GetBlockFace(Tile3D.Block block, Vector3 face)
+    private Face GetBlockFace(Block block, Vector3 face)
     {
         for (int i = 0; i < Tile3D.Faces.Length; i++)
         {
@@ -566,13 +567,13 @@ public class Tile3DEditor : Editor
         return block.Faces[0];
     }
 
-    private bool FillBlockFace(Tile3D.Block block, Tile3D.Face face)
+    private bool FillBlockFace(Block block, Face face)
     {
         Vector3Int perp1, perp2;
         GetPerpendiculars(hover.Face, out perp1, out perp2);
 
-        var active = new List<Tile3D.Block>();
-        var filled = new HashSet<Tile3D.Block>();
+        var active = new List<Block>();
+        var filled = new HashSet<Block>();
         var directions = new Vector3Int[4] { perp1, perp1 * -1, perp2, perp2 * -1 };
         var outwards = hover.Face.Int();
         var changed = false;
@@ -1094,3 +1095,4 @@ public class Tile3DEditor : Editor
         tar.Rebuild();
     }
 }
+#endif

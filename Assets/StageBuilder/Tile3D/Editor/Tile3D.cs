@@ -1,7 +1,7 @@
-#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEditor;
 using System.IO;
 using System.Text;
@@ -20,9 +20,6 @@ public class Tile3D : MonoBehaviour
         Vector3.left,    Vector3.right,
         Vector3.forward, Vector3.back
     };
-
-    // individual 3d tile (used to create / manage blocks)
-    
 
     // used to build the meshes
     // currently we use 2, one for what is actually being rendered and one for collisions (so the editor can click stuff)
@@ -560,4 +557,3 @@ public class Tile3D : MonoBehaviour
         sr.Close();
     }
 }
-#endif
