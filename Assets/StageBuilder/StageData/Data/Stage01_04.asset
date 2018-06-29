@@ -29998,4 +29998,4 @@ MonoBehaviour:
       Hidden: 0
   renderMesh: {fileID: 4300000, guid: 28c86c5e19cc1ba4396cb159ff039846, type: 2}
   colliderMesh: {fileID: 4300000, guid: ce1af03c70b45de4fb3dea6bb95cbcab, type: 2}
-  data: {fileID: 4900000, guid: a87d307f0ce098d4485f529b9c52aba1, type: 3}
+  data: {fileID: 0}
