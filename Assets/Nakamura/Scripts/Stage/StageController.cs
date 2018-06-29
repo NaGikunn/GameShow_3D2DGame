@@ -39,12 +39,6 @@ namespace Dimension.Stage
         public float StageHeight    { get; private set; }   // ステージの高さ
         public float StageDepth     { get; private set; }   // ステージの奥行き
 
-        //=====================================================
-        void Awake()
-        {
-            if (stageData == null) return;
-            Initialize();
-        }
         //-----------------------------------------------------
         //  ステージ情報の設定
         //-----------------------------------------------------
@@ -111,6 +105,7 @@ namespace Dimension.Stage
         {
             ReadStageData();    // 読み込み
             DataCalculation();  // 計算
+            BackLineCalulation();
             CreateStage();      // 生成
         }
         //-----------------------------------------------------
@@ -195,6 +190,32 @@ namespace Dimension.Stage
             StageDepth  = vecMax.z - vecMin.z;
         }
         //-----------------------------------------------------
+        //  2Dから3D切り替え時の戻る位置のリストを計算
+        //-----------------------------------------------------
+        void BackLineCalulation()
+        {
+            // 上向きの平面
+            List<Plane> topPlanes = GetMeshToPlane(colliderMesh, Vector3.up);
+            // 配列
+            BackLine[] backLines = new BackLine[(int)StageDepth - 1];
+            Vector3 basePoint = StageCenter - StageForward * (StageDepth / 2);
+            Vector3 AxisForward = new Vector3(Mathf.Abs(StageForward.x), 0, Mathf.Abs(StageForward.z)); // 正面方向の軸
+            Vector3 AxisRight   = new Vector3(Mathf.Abs(StageForward.x), 0, Mathf.Abs(StageForward.z)); // 右方向の軸
+            for(int i = 0; i < backLines.Length; ++i) {
+                foreach (Plane plane in topPlanes) {
+                    // 正面方向への距離
+                    Vector3 center = plane.Center - Vector3.Scale(StageForward, basePoint);
+                    float depth = Conversion.Vector3ToFloat(Vector3.Scale(AxisForward, center));
+                    if (depth >= i + 1) continue;
+
+
+                 }
+            }
+
+            Debug.Log(StageForward);
+            
+        }
+        //-----------------------------------------------------
         //  ステージ生成
         //-----------------------------------------------------
         void CreateStage()
@@ -216,13 +237,15 @@ namespace Dimension.Stage
         //-----------------------------------------------------
         void CreateSecondCollider()
         {
-            List<Plane>     planes    = new List<Plane>();      // 平面のリスト
+            List<Plane>     planes    = new List<Plane>();  // 平面のリスト
             List<Cube>      cubes     = new List<Cube>();       // 立方体のリスト
             List<Vector3>   vertices  = new List<Vector3>();    // 頂点のリスト
             List<int>       triangles = new List<int>();        // 三角形のリスト
 
             // 必要な平面を取得
             planes = GetMeshToPlane(colliderMesh, StageRight);
+            planes = SetNormalVectorPosition(planes);
+            planes = DeleateSamePlane(planes);
 
             // 平面を立方体に
             foreach(Plane plane in planes) {
@@ -260,31 +283,49 @@ namespace Dimension.Stage
         {
             List<Plane> planeList = new List<Plane>();
 
-            Vector3 getAxis = new Vector3(
-                (Mathf.Round(axis.x) == 0) ? 1 : 0,
-                (Mathf.Round(axis.y) == 0) ? 1 : 0,
-                (Mathf.Round(axis.z) == 0) ? 1 : 0
-                );
-
             for (int i = 0; i < colliderMesh.vertexCount / 4; ++i)
             {
                 // 平面を取得
                 Plane plane = new Plane(
-                    Vector3.Scale(getAxis, colliderMesh.vertices[(i * 4) + 0]),
-                    Vector3.Scale(getAxis, colliderMesh.vertices[(i * 4) + 1]),
-                    Vector3.Scale(getAxis, colliderMesh.vertices[(i * 4) + 2]),
-                    Vector3.Scale(getAxis, colliderMesh.vertices[(i * 4) + 3])
+                    colliderMesh.vertices[(i * 4) + 0],
+                    colliderMesh.vertices[(i * 4) + 1],
+                    colliderMesh.vertices[(i * 4) + 2],
+                    colliderMesh.vertices[(i * 4) + 3]
                     );
 
                 // 頂点の順序
                 if (plane.GetNormalVector() != axis) continue;
 
                 //リストに追加
-                if (planeList.Count == 0) planeList.Add(plane);
-                else if (CheckNotListSame(planeList, plane)) planeList.Add(plane);
+                planeList.Add(plane);
             }
 
             return planeList;
+        }
+        //-----------------------------------------------------
+        //  List内のPlaneの位置を調整する
+        //-----------------------------------------------------
+        List<Plane> SetNormalVectorPosition(List<Plane> list, float value = 0)
+        {
+            for(int i = 0; i < list.Count; ++i) {
+                Vector3 normalVec = list[i].GetNormalVector();
+                for(int j = 0; j < list[i].vertices.Length; ++j) {
+                    list[i].vertices[j] -= Vector3.Scale(normalVec, list[i].vertices[j]);
+                }
+            }
+            return list;
+        }
+        //-----------------------------------------------------
+        //  List内の同じ位置のPlaneを削除
+        //-----------------------------------------------------
+        List<Plane> DeleateSamePlane(List<Plane> list)
+        {
+            List<Plane> planes = new List<Plane>();
+            foreach(Plane plane in list) {
+                if (planes.Count == 0) planes.Add(plane);
+                else if (CheckNotListSame(planes, plane)) planes.Add(plane);
+            }
+            return planes;
         }
         //-----------------------------------------------------
         //  List内にvalueと同じ値がないとき、true
