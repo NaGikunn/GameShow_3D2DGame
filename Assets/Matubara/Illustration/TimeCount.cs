@@ -26,6 +26,6 @@ public class TimeCount : MonoBehaviour {
         else
             secText = second.ToString();
 
-        text.text = "[Time] " + minText + ":" + secText;
+        text.text = "[Time] " + minText + "：" + secText;
     }
 }
