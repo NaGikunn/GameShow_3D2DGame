@@ -33,6 +33,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             if (Input.anyKeyDown)
             {
                 sceaneflg = true;
+                AudioMnagerController.SE1.Play();
             }
 
             //初めにWhiteImageのアルファを小さくする
@@ -49,11 +50,6 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
                 {
                     FadeManagerController.Instance.BlackFadeIn();
                 }
-                //BGMを小さくする
-                //if (AudioMnagerController.BGM1.volume >= 0.0f)
-                //{
-                //    AudioMnagerController.Instance.BGMFadeOut();
-                //}
                 //三秒たったら
                 if (TIME >= 3.0f)
                 {
@@ -75,24 +71,11 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             //セレクト画面でプレイヤーがステージに触ったら
             if (SelectStagePlayer.Load)
             {
-                TIME += Time.deltaTime; 
-                if (FadeManagerController.Blackalfa <= 1.0f)
-                {
-                    FadeManagerController.Instance.BlackFadeIn();
-                }
-                if(AudioMnagerController.BGM1.volume >= 0.0f)
-                {
-                    AudioMnagerController.Instance.BGMFadeOut();
-                }
-                if (TIME >= 3.0f)
-                {
-                    AudioMnagerController.BGM1.Pause();
-                    SceneManager.LoadScene("StageTutorial_m");
-                    TIME = 0.0f;
-                }
+                StageSelectFade();
+                AudioMnagerController.SE2.Play();
             }
             //クリアしているときにセレクト画面に来たら白のフェード
-            if (PlayerMoveController.Clear)
+            if (PlayerMoveController.Clear >= 1)
             {
                 FadeManagerController.Blackalfa = 0.0f;
                 FadeManagerController.Instance.WhiteFadeOut();
@@ -103,7 +86,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         if (NowScene == "StageTutorial_m")
         {
             //ここが何回も呼ばれてるよ
-            AudioMnagerController.BGM2.Play();
+            //AudioMnagerController.BGM2.Play();
             //初めにBlackImageのアルファを小さくする
             if (FadeManagerController.Blackalfa >= 0.0f)
             {
@@ -111,7 +94,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             }
 
             //clear時
-            if (PlayerMoveController.Clear)
+            if (PlayerMoveController.Clear >= 1)
             {
                 if (FadeManagerController.Whitealfa <= 1.0f)
                 {
@@ -119,11 +102,43 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
                 }
             }
         }
+    }
 
-        //if (NowScene == "StageTutorial_m" && !PlayerMoveController.Clear)
-        //{
-        //    FadeManagerController.Whitealfa = 0.0f;
-        //    return;
-        //}
+    public void StageSelectFade()
+    {
+        TIME += Time.deltaTime;
+        if (FadeManagerController.Blackalfa <= 1.0f)
+        {
+            FadeManagerController.Instance.BlackFadeIn();
+        }
+        if (AudioMnagerController.BGM1.volume >= 0.0f)
+        {
+            AudioMnagerController.Instance.BGMFadeOut();
+        }
+        if (TIME >= 3.0f)
+        {
+            AudioMnagerController.BGM1.Pause();
+            if(SelectStagePlayer.ObjectName == "StageTutorial")
+            {
+                SceneManager.LoadScene("StageTutorial_m");
+            }
+            if(SelectStagePlayer.ObjectName == "Stage1")
+            {
+                SceneManager.LoadScene("Stage1");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage2")
+            {
+                SceneManager.LoadScene("Stage2");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage3")
+            {
+                SceneManager.LoadScene("Stage3");
+            }
+            if (SelectStagePlayer.ObjectName == "Stage4")
+            {
+                SceneManager.LoadScene("Stage4");
+            }
+            TIME = 0.0f;
+        }
     }
 }
