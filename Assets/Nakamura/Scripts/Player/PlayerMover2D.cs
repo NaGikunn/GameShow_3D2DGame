@@ -23,7 +23,7 @@ namespace Dimension.Player
             moveAccel = PController.SaveAccel * 0.5f;
 
             // 向き
-            transformCache.forward = StageForward;
+            //transformCache.forward = StageForward;
             // 位置
             int sign = (PController.IsRight) ? 1 : -1;
             transform.localPosition = (sign * StageRight * StageWidth * 2) + Vector3.Scale(ForwardAxis + Vector3.up, transformCache.localPosition);

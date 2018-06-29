@@ -35,7 +35,7 @@ public class SelectStagePlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         Load = false;
         int Destroypos = PlayerMoveController.Clear;
-        if (PlayerMoveController.Clear <=1)
+        if (PlayerMoveController.Clear >=1)
         {
             Destroy(smokeObj[Destroypos-1]);
         }
@@ -85,11 +85,11 @@ public class SelectStagePlayer : MonoBehaviour
         if (isInput)
         {
             //歩くアニメーション
-            anim.SetBool("walk", true);
+            anim.SetBool("Walk", true);
         }
         else
         {
-            anim.SetBool("walk", false);
+            anim.SetBool("Walk", false);
         }
     }
 
