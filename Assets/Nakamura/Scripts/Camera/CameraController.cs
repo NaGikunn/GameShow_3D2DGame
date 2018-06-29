@@ -64,8 +64,6 @@ namespace Dimension.Camera2D3D
         {
             Destroy(cWork);
             cWork = gameObject.AddComponent<CW>();
-            cWork.SetTarget(player);
-            cWork.Initialize();
         }
         //-----------------------------------------------------
         //  ゲームコントローラー受け取り

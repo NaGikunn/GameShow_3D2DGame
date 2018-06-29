@@ -13,7 +13,6 @@ namespace Dimension.Player
         float moveAccel;    // 加速度
 
         Vector3 StageRight { get { return PController.SController.StageRight; } }
-        bool IsGround { get { return PController.IsGround; } }
         //-----------------------------------------------------
         //  初期化
         //-----------------------------------------------------

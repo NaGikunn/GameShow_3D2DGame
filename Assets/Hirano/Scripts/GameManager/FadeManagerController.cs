@@ -13,31 +13,91 @@ public class FadeManagerController : SingletonMonoBehaviour<FadeManagerControlle
     public static float Whitealfa = 1.0f;
     public static float Blackalfa = 1.0f;
 
-    //白のフェードアウト
-    public void WhiteFadeOut()
+    public enum Scene
     {
-        Whitealfa -= 0.3f * Time.deltaTime;
-        WhiteImage.color = new Color(255, 255, 255, Whitealfa);
+        Title,
+        StageSelect,
+        GameScene
+    }
+
+    public void FadeScene(Scene nextScene)
+    {
+        switch (nextScene)
+        {
+            case Scene.Title: StartCoroutine(TransitionWhiteFade(nextScene.ToString())); break;
+            case Scene.StageSelect: StartCoroutine(TransitionWhiteFade(nextScene.ToString())); break;
+            case Scene.GameScene: StartCoroutine(TransitionBlackFade(nextScene.ToString())); break;
+        }
+    }
+
+    public IEnumerator TransitionBlackFade(string next)
+    {
+        yield return StartCoroutine(BlackFadeIn());
+
+        SceaneManagerController.Instance.TransitionScene(next);
+
+        yield return StartCoroutine(BlackFadeOut());
+    }
+
+    public IEnumerator TransitionWhiteFade(string next)
+    {
+        Debug.Log("a");
+
+        yield return StartCoroutine(WhiteFadeIn());
+
+        Debug.Log("b");
+
+        SceaneManagerController.Instance.TransitionScene(next);
+
+        yield return StartCoroutine(WhiteFadeOut());
+    }
+
+    //白のフェードアウト
+    public IEnumerator  WhiteFadeOut()
+    {
+        while (true)
+        {
+            Whitealfa = Mathf.Max(Whitealfa - 1.0f * Time.deltaTime, 0);
+            WhiteImage.color = new Color(255, 255, 255, Whitealfa);
+            if (Whitealfa == 0) break;
+
+            yield return null;
+        }
     }
 
     //黒のフェードアウト
-    public void BlackFadeOut()
+    public IEnumerator BlackFadeOut()
     {
-        Blackalfa -= 0.3f * Time.deltaTime;
-        BlackImage.color = new Color(0, 0, 0, Blackalfa);
+        while (true)
+        {
+            Blackalfa = Mathf.Max(Blackalfa - 1.0f * Time.deltaTime, 0);
+            BlackImage.color = new Color(255, 255, 255, Blackalfa);
+            if (Blackalfa == 0) break;
+            yield return null;
+        }
     }
 
     //白のフェードイン
-    public void WhiteFadeIn()
+    public IEnumerator WhiteFadeIn()
     {
-        Whitealfa += 0.4f * Time.deltaTime;
-        WhiteImage.color = new Color(255, 255, 255, Whitealfa);
+        while (true)
+        {
+            Whitealfa = Mathf.Min(Whitealfa + 1.0f * Time.deltaTime, 1);
+            WhiteImage.color = new Color(255, 255, 255, Whitealfa);
+            if (Whitealfa == 1) break;
+            yield return null;
+        }
     }
 
     //黒のフェードイン
-    public void BlackFadeIn()
+    public IEnumerator BlackFadeIn()
     {
-        Blackalfa += 0.5f * Time.deltaTime;
-        BlackImage.color = new Color(0, 0, 0, Blackalfa);
+        while (true)
+        {
+            Blackalfa = Mathf.Min(Blackalfa + 1.0f * Time.deltaTime, 1);
+            BlackImage.color = new Color(255, 255, 255, Blackalfa);
+            if (Blackalfa == 1) break;
+            yield return null;
+        }
     }
 }

@@ -256,7 +256,7 @@ namespace Dimension.Stage
             CreateSecondCollider();
 
             // ゴールの配置
-            GameObject goalObj = Instantiate(goalPre.gameObject, GoalPoint, Quaternion.identity);
+            StageGoal goalObj = Instantiate(goalPre, GoalPoint, Quaternion.identity);
             goalObj.transform.parent = transform;
         }
         //-----------------------------------------------------

@@ -31,7 +31,7 @@ namespace Dimension.Camera2D3D
 
             //-------------------------------------------------
             Vector3 stageCenter = CController.SController.StageCenter;
-            float stageWidth = CController.SController.StageWidth;
+            float   stageWidth  = CController.SController.StageWidth;
 
             if(GameMode == Mode.Third)
             {   // 3D → 2D

@@ -40,15 +40,10 @@ namespace Dimension.Camera2D3D
         void Awake()
         {
             transformCache = transform;
-            CController = GetComponent<CameraController>();
-            MyCamera = GetComponent<Camera>();
-        }
-        //-----------------------------------------------------
-        //  Targetを設定
-        //-----------------------------------------------------
-        public void SetTarget(TestPlayer target)
-        {
-            if (Target == null) Target = target;
+            MyCamera       = GetComponent<Camera>();
+            CController    = GetComponent<CameraController>();
+            Target         = CController.player;
+            Initialize();
         }
         //-----------------------------------------------------
         //  抽象メソッド

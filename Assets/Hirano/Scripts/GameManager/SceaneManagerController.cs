@@ -37,25 +37,18 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             }
 
             //初めにWhiteImageのアルファを小さくする
-            if (FadeManagerController.Whitealfa >= 0.0f)
-            {
-                FadeManagerController.Instance.WhiteFadeOut();
-            }
+            StartCoroutine(FadeManagerController.Instance.WhiteFadeOut());
             //ボタンを押したら
             if (sceaneflg)
             {
-                TIME += Time.deltaTime;
                 //BlackImageのアルファを多きくする
-                if (FadeManagerController.Blackalfa <= 1.0f)
+                StartCoroutine(FadeManagerController.Instance.BlackFadeIn());
+                //アルファが1以上になったら
+                if (FadeManagerController.Blackalfa >= 1.0f)
                 {
-                    FadeManagerController.Instance.BlackFadeIn();
-                }
-                //三秒たったら
-                if (TIME >= 3.0f)
-                {
+                    sceaneflg = false;
                     //ステージセレクトへ
                     SceneManager.LoadScene("StageSelect");
-                    TIME = 0.0f;
                 }
             }
         }
@@ -63,42 +56,38 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         //セレクト画面なら
         if (NowScene == "StageSelect")
         {
-            //初めにBlackImageのアルファを小さくする
             if (FadeManagerController.Blackalfa >= 0.0f)
             {
-                FadeManagerController.Instance.BlackFadeOut();
+                //初めにBlackImageのアルファを小さくする
+                //StartCoroutine(FadeManagerController.Instance.BlackFadeOut());
             }
             //セレクト画面でプレイヤーがステージに触ったら
-            if (SelectStagePlayer.Load)
-            {
-                StageSelectFade();
-                AudioMnagerController.SE2.Play();
-            }
+            //if (SelectStagePlayer.Load)
+            //{
+            //    StageSelectFade();
+            //}
             //クリアしているときにセレクト画面に来たら白のフェード
             if (PlayerMoveController.Clear >= 1)
             {
                 FadeManagerController.Blackalfa = 0.0f;
-                FadeManagerController.Instance.WhiteFadeOut();
+                StartCoroutine(FadeManagerController.Instance.WhiteFadeOut());
             }
         }
 
-        //チュートリアルステージなら
-        if (NowScene == "StageTutorial_m")
+        //ゲームシーンなら
+        if (NowScene == "GameScene")
         {
             //ここが何回も呼ばれてるよ
             //AudioMnagerController.BGM2.Play();
             //初めにBlackImageのアルファを小さくする
-            if (FadeManagerController.Blackalfa >= 0.0f)
-            {
-                FadeManagerController.Instance.BlackFadeOut();
-            }
+            StartCoroutine(FadeManagerController.Instance.BlackFadeOut());
 
             //clear時
             if (PlayerMoveController.Clear >= 1)
             {
                 if (FadeManagerController.Whitealfa <= 1.0f)
                 {
-                    FadeManagerController.Instance.WhiteFadeIn();
+                    StartCoroutine(FadeManagerController.Instance.WhiteFadeIn());
                 }
             }
         }
@@ -106,39 +95,25 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
 
     public void StageSelectFade()
     {
-        TIME += Time.deltaTime;
-        if (FadeManagerController.Blackalfa <= 1.0f)
-        {
-            FadeManagerController.Instance.BlackFadeIn();
-        }
-        if (AudioMnagerController.BGM1.volume >= 0.0f)
-        {
-            AudioMnagerController.Instance.BGMFadeOut();
-        }
-        if (TIME >= 3.0f)
+        StartCoroutine(FadeManagerController.Instance.BlackFadeOut());
+        //if (AudioMnagerController.BGM1.volume >= 0.0f)
+        //{
+        //    AudioMnagerController.Instance.BGMFadeOut();
+        //}
+        //if (TIME >= 3.0f)
+        //{
+        if(FadeManagerController.Blackalfa <= 0)
         {
             AudioMnagerController.BGM1.Pause();
-            if(SelectStagePlayer.ObjectName == "StageTutorial")
-            {
-                SceneManager.LoadScene("StageTutorial_m");
-            }
-            if(SelectStagePlayer.ObjectName == "Stage1")
-            {
-                SceneManager.LoadScene("Stage1");
-            }
-            if (SelectStagePlayer.ObjectName == "Stage2")
-            {
-                SceneManager.LoadScene("Stage2");
-            }
-            if (SelectStagePlayer.ObjectName == "Stage3")
-            {
-                SceneManager.LoadScene("Stage3");
-            }
-            if (SelectStagePlayer.ObjectName == "Stage4")
-            {
-                SceneManager.LoadScene("Stage4");
-            }
-            TIME = 0.0f;
+            AudioMnagerController.SE2.Play();
+            SceneManager.LoadScene("GameScene");
         }
+            TIME = 0.0f;
+        //}
+    }
+
+    public void TransitionScene(string nextScene)
+    {
+        SceneManager.LoadScene(nextScene);
     }
 }
