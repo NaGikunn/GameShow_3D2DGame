@@ -30,12 +30,25 @@ namespace Dimension.Player
         //-----------------------------------------------------
         public override void Move(KeyState key)
         {
-            // プレイヤーからカメラへの方向
-            Vector3 directionPtoC = targetCamera.position - transformCache.position;
-            // 高さは無視
-            directionPtoC.y = 0;
+            //// プレイヤーからカメラへの方向
+            //Vector3 directionPtoC = targetCamera.position - transformCache.position;
+            //// // 高さは無視
+            //directionPtoC.y = 0;
 
-            transformCache.localRotation = Quaternion.LookRotation(directionPtoC, Vector3.up);
+            //transformCache.localRotation = Quaternion.LookRotation(directionPtoC, Vector3.up);
+            float speed = 5f;
+            float step;
+            Quaternion PlayerRotation = transform.rotation;
+            step = speed * Time.deltaTime;
+            //ステージの進行方向に回転
+            if(PlayerRotation.y <= -90.0f || PlayerRotation.y >= 90.0f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y - 180.0f, 0), step);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, (float)StageForward.y, 0), step);
+            }
         }
         //-----------------------------------------------------
         //  復帰
