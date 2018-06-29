@@ -18,7 +18,6 @@ namespace Dimension.Player
         Rigidbody rigidbodyCache;
 
         PlayerMover pMover;
-
         //-----------------------------------------------------
         //  プロパティ
         //-----------------------------------------------------

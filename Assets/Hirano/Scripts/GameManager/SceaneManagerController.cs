@@ -83,7 +83,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
         }
 
         //チュートリアルステージなら
-        if (NowScene == "StageTutorial_m")
+        if (NowScene == "Stage1")
         {
             //ここが何回も呼ばれてるよ
             //AudioMnagerController.BGM2.Play();
@@ -94,11 +94,12 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             }
 
             //clear時
-            if (PlayerMoveController.Clear >= 1)
+            if (Chara.Clear >= 1)
             {
                 if (FadeManagerController.Whitealfa <= 1.0f)
                 {
                     FadeManagerController.Instance.WhiteFadeIn();
+                    SceneManager.LoadScene("StageSelect");
                 }
             }
         }
@@ -120,7 +121,7 @@ public class SceaneManagerController : SingletonMonoBehaviour<SceaneManagerContr
             AudioMnagerController.BGM1.Pause();
             if(SelectStagePlayer.ObjectName == "StageTutorial")
             {
-                SceneManager.LoadScene("StageTutorial_m");
+                SceneManager.LoadScene("Stage1");
             }
             if(SelectStagePlayer.ObjectName == "Stage1")
             {

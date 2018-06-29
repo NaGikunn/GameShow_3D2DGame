@@ -34,8 +34,8 @@ public class SelectStagePlayer : MonoBehaviour
         playerPos = transform.position;
         anim = GetComponent<Animator>();
         Load = false;
-        int Destroypos = PlayerMoveController.Clear;
-        if (PlayerMoveController.Clear >=1)
+        int Destroypos = Chara.Clear;
+        if (Chara.Clear >=1)
         {
             Destroy(smokeObj[Destroypos-1]);
         }
