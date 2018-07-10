@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650c24482466e0645aa4e3550e77b4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageData: {fileID: 11400000, guid: 2b9c963de1732684abcdc192d539d1b2, type: 2}
+  stageData: {fileID: 11400000, guid: 1ea0437bb671906498b17b6125463516, type: 2}
   cController: {fileID: 1841637145}
   pController: {fileID: 1408667386}
   sController: {fileID: 2060278085}
