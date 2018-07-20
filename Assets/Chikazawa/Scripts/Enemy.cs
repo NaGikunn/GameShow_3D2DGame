@@ -17,7 +17,7 @@ namespace StateMachine
     {
         //個体で違う数値・参照が必要な変数はここに書く
         public Transform player;
-        Dimension.GameController GCon;
+        Camera cam;
         Vector3 StartPos;                  //初期位置
 
         public bool IsFly;
@@ -59,15 +59,16 @@ namespace StateMachine
         {
             // 始めにプレイヤーの位置を取得できるようにする
             player = GameObject.FindWithTag("Player").transform;
-            
+            //メインカメラを取得
+            cam = Camera.main;
             //初期位置を保存してリスポーン出来るようにする
             StartPos = transform.position;
 
             //巡回範囲の設定
             StayPosL = StartPos;
             StayPosR = StartPos;
-            StayPosL.x = StartPos.x - (MoveLength / 2);
-            StayPosR.x = StartPos.x + (MoveLength / 2);
+            StayPosL.z = StartPos.z - (MoveLength / 2);
+            StayPosR.z = StartPos.z + (MoveLength / 2);
 
             // ステートマシンの初期設定
             stateList.Add(new StateWalk(this));
@@ -89,14 +90,6 @@ namespace StateMachine
                 Debug.Log("ATTACK_HIT!!");
             }
         }
-        void Updare()
-        {
-            if (GCon.GameMode != GCon.GameMode)
-            {
-                AwakeFlg = !AwakeFlg;
-            }
-        }
-
         /// <summary>
         /// 待機or徘徊
         /// </summary>
@@ -167,10 +160,16 @@ namespace StateMachine
 
             public override void Execute()//Update処理
             {
-                if(Input.GetKeyDown(KeyCode.F1))
+                //カメラが2Dになったら起動、3Dなら停止
+                if(owner.cam.orthographic)
                 {
-                    owner.AwakeFlg = !owner.AwakeFlg;
+                    owner.AwakeFlg = true;
                 }
+                else
+                {
+                    owner.AwakeFlg = false;
+                }
+
                 if (owner.AwakeFlg)
                 {
                     ///<summary>
@@ -198,17 +197,17 @@ namespace StateMachine
                 float DistanceToTarget = Vector3.SqrMagnitude(owner.transform.position - targetPoint);
                 if (DistanceToTarget < owner.changeTargetDistance)
                 {
-                    //if (owner.P_Targetlostflg)
-                    //{
-                    //    if (StayTime < owner.TargetLostTime)
-                    //    {
-                    //        StayTime += Time.deltaTime;
-                    //    }
-                    //    else
-                    //    {
-                    //        owner.P_Targetlostflg = false;
-                    //    }
-                    //}
+                    ///if (owner.P_Targetlostflg)
+                    ///{
+                    ///    if (StayTime < owner.TargetLostTime)
+                    ///    {
+                    ///        StayTime += Time.deltaTime;
+                    ///    }
+                    ///    else
+                    ///    {
+                    ///        owner.P_Targetlostflg = false;
+                    ///    }
+                    ///}
                     //その場で一定時間待機
                     if (StayTime < owner.WalkStopTime)
                     {
@@ -225,7 +224,7 @@ namespace StateMachine
                 else
                 {
                     // 正面に向かってRayを飛ばす（第1引数がRayの発射座標、第2引数がRayの向き）
-                    owner.ray = new Ray(owner.gameObject.transform.position, Vector3.right * owner.moveVec);
+                    owner.ray = new Ray(owner.gameObject.transform.position, Vector3.forward * owner.moveVec);
 
                     // シーンビューにRayを可視化
                     Debug.DrawRay(owner.ray.origin, owner.ray.direction * 3.0f, Color.red, 0.0f);
@@ -273,11 +272,11 @@ namespace StateMachine
                         //移動方向に応じて向きの切り替え
                         if (diff.x > 0)
                         {
-                            owner.moveVec = 1;
+                            owner.moveVec = 0.5f;
                         }
                         else
                         {
-                            owner.moveVec = -1;
+                            owner.moveVec = -0.5f;
                         }
                         //目標の方向を向いて進む 歩行型は向きは変わらない
                         if (owner.IsFly)
